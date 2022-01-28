@@ -34,13 +34,13 @@ Download the Mini root filesystem and place it in the same directory as the Dock
 https://dl-cdn.alpinelinux.org/alpine/v3.15/releases/x86/alpine-minirootfs-3.15.0-x86.tar.gz
 ```sh
 # Get all the files for GitHub
-https://github.com/ddella/PHP8-Nginx.git
+git clone https://github.com/ddella/PHP8-Nginx.git
 cd php8-nginx
 
-# Get Alpine Mini Root FileSystem
-curl https://dl-cdn.alpinelinux.org/alpine/v3.15/releases/x86/alpine-minirootfs-3.15.0-x86.tar.gz
+# Get the Alpine Mini Root FileSystem (~2.7MB)
+curl -O https://dl-cdn.alpinelinux.org/alpine/v3.15/releases/x86/alpine-minirootfs-3.15.0-x86.tar.gz
 
-# Build the Docker image from scratch
+# Build the Docker image from scratch. Don't forget the '.' at the end.
 docker build -t php8_nginx .
 ```
 
