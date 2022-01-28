@@ -9,10 +9,13 @@
 
 # Introduction
 This will build a Docker image from scratch. It is based on Alpine Linux 3.15.0 and PHP 8.
-Three files will be copied on the www directory
+Three files will be copied on the www directory of the container.
+
 1. index.html -> The main page when accessing the web server
 2. phpinfo.php -> This is the phpinfo() function
 3. phpvariables.php -> This is the phpinfo(INFO_VARIABLES) function
+
+The build is in four steps:
 
 1. Start by downloading the Alpine mini root filesystem.
 2. Build the Docker container with the minirootfs.
@@ -22,6 +25,7 @@ FROM scratch
 ADD alpine-minirootfs-3.15.0-x86_64.tar.gz /
 ```
 3. Install Nginx and PHP 8.
+4. Copy and execute some scripts to finalize the installation.
 
 # Alpine Mini Root FileSystem
 This will build a Docker image from scratch. It will be based on Alpine Linux 3.15.0 and we will install the minimum PHP8.
