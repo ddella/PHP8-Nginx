@@ -1,16 +1,9 @@
-# to build: docker build -t php8_nginx .
-# to run: docker run --rm -d -p 4000:80 --name web php8_nginx
-# to run with shell (debug ONLY): docker run -it --rm --entrypoint /bin/sh --name web1 php8_nginx
-# to shutdown: docker rm -f web
-
-# https://wiki.alpinelinux.org/wiki/Nginx_with_PHP#Configuration_of_PHP7
-
 # Set master image
 FROM scratch
 ADD alpine-minirootfs-3.15.0-x86_64.tar.gz /
 
 LABEL Maintainer="DDN <daniel@isociel.com>"
-LABEL Description="Lightweight container with Nginx latest with Nginx latest on Alpine."
+LABEL Description="Lightweight container with Nginx and PHP 8 on Alpine."
 
 # Nginx Installation
 RUN apk --no-cache upgrade && apk add --no-cache nginx
