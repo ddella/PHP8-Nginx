@@ -23,6 +23,8 @@ The build is in four steps:
 # Set master image
 FROM scratch
 ADD alpine-minirootfs-3.15.0-x86_64.tar.gz /
+<See the Dockerfile for the complete commands>
+...
 ```
 3. Install Nginx and PHP 8.
 4. Copy and execute some scripts to finalize the installation.
