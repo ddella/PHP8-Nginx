@@ -12,7 +12,7 @@ This will build a Docker image from scratch. It is based on Alpine Linux 3.15.0 
 Three files will be copied on the www directory
 1. index.html -> The main page when accessing the web server
 2. phpinfo.php -> This is the phpinfo() function
-2. phpvariables.php -> This is the phpinfo(INFO_VARIABLES) function
+3. phpvariables.php -> This is the phpinfo(INFO_VARIABLES) function
 
 1. Start by downloading the Alpine mini root filesystem.
 2. Build the Docker container with the minirootfs.
