@@ -9,9 +9,15 @@
 
 # Introduction
 This will build a Docker image from scratch. It is based on Alpine Linux 3.15.0 and PHP 8.
-1. The first step is to download the Alpine mini root filesystem.
-2. Build the Docker container with the minirootfs
-3. Install Nginx and PHP 8
+1. Start by downloading the Alpine mini root filesystem.
+```Docker
+# Set master image
+FROM scratch
+ADD alpine-minirootfs-3.15.0-x86_64.tar.gz /
+```
+
+2. Build the Docker container with the minirootfs.
+3. Install Nginx and PHP 8.
 
 # Alpine Mini Root FileSystem
 This will build a Docker image from scratch. It will be based on Alpine Linux 3.15.0 and we will install the minimum PHP8.
