@@ -51,7 +51,7 @@ docker run --rm -d -p 8080:80 --name web php8_nginx
 ```
 
 # Testing
-You can then browse to ```http://localhost:8080``` to view the default page.
+Open your browser and type the following url to access the default page.
 ```url
 http://localhost:8080
 ```
