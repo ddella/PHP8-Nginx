@@ -11,6 +11,10 @@
 This will build a Docker image, from scratch. It is based on Alpine Linux 3.15, Nginx 1.20 and PHP 8.
 Three files will be copied on the ```www``` directory of the container.
 This container can be used to test ```load balancer``` fronting web servers.
+Just hit your load balancer with the following url to get the IP address of the web server servicing the requests.
+```url
+http://<load balancer>/phpvariables.php
+```
 
 1. index.html -> The main page when accessing the web server
 2. phpinfo.php -> This is the phpinfo() function
