@@ -1,15 +1,15 @@
-# Nginx and PHP 8 for Docker
+# Alpine Linux Nginx/PHP 8 for Docker
 # Version
 ## Last Version
-|Name|Version|Docker tag|
-|:---|:---|:---:|
-|**Alpine**|3.15.0| 3.15.0 |
-|**NGINX**|1.20.2| 1.20 |
-|**PHP8**|8.0.14| 8.0 |
+|Name|Version|
+|:---|:---|
+|**Alpine**|3.15.0|
+|**NGINX**|1.20.2|
+|**PHP8**|8.0.14|
 
 # Introduction
-This will build a Docker image from scratch. It is based on Alpine Linux 3.15.0 and PHP 8.
-Three files will be copied on the www directory of the container.
+This will build a Docker image, from scratch. It is based on Alpine Linux 3.15, Nginx 1.20 and PHP 8.
+Three files will be copied on the ```www``` directory of the container.
 
 1. index.html -> The main page when accessing the web server
 2. phpinfo.php -> This is the phpinfo() function
@@ -52,7 +52,9 @@ docker run --rm -d -p 8080:80 --name web php8_nginx
 
 # Testing
 You can then browse to ```http://localhost:8080``` to view the default page.
-
+```url
+http://localhost:8080
+```
 # Terminate the container
 This will terminate the container launched in the preceeding step:
 ```sh   
