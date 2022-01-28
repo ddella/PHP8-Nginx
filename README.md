@@ -55,4 +55,4 @@ The container will terminate as soon as you exit the shell.
 # [CHANGELOG](./CHANGELOG)
 
 # License
-This project is licensed under the [MIT license](LICENSE).   
+This project is licensed under the [MIT license](LICENSE).
