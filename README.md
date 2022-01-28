@@ -23,7 +23,6 @@ The build is in four steps:
 # Set master image
 FROM scratch
 ADD alpine-minirootfs-3.15.0-x86_64.tar.gz /
-<See the Dockerfile for the complete commands>
 ...
 ```
 3. Install Nginx and PHP 8.
@@ -35,7 +34,7 @@ Download the Mini root filesystem and place it in the same directory as the Dock
 https://dl-cdn.alpinelinux.org/alpine/v3.15/releases/x86/alpine-minirootfs-3.15.0-x86.tar.gz
 ```sh
 # Get all the files for GitHub
-git clone https://github.com/daniel/docker-php8-nginx.git
+https://github.com/ddella/PHP8-Nginx.git
 cd php8-nginx
 
 # Get Alpine Mini Root FileSystem
