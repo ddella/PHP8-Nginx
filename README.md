@@ -23,16 +23,17 @@ http://<load balancer>/phpvariables.php
 
 The build is in four steps:
 
-1. Start by downloading the Alpine mini root filesystem.
-2. Build the Docker container with the minirootfs.
+1. Clone the files from github.
+2. Download the Alpine mini root filesystem. We start our container with this. See an the extract from the ```Dockerfile```.
 ```Docker
 # Set master image
 FROM scratch
 ADD alpine-minirootfs-3.15.0-x86_64.tar.gz /
 ...
 ```
-3. Install Nginx and PHP 8.
-4. Copy and execute some scripts to finalize the installation.
+3. Build the Docker container.
+4. Install Nginx, PHP 8 and execute some scripts to finalize the installation.
+5. Run the container.
 
 # Copy all the files needed to build the image
 This will build a Docker image from scratch. It will be based on Alpine Linux 3.15.0 with Nginx web server and PHP8.
@@ -61,15 +62,16 @@ The following commands will run your container.
 docker run --rm -d -p 8080:80 -p 8443:443 --name web php8_nginx
 ```
 
-```HTTP```  : TCP port 80, inside the container, will be mapped to port 8080 of your local PC.  
-```HTTPS```: TCP port 443, inside the container, will be mapped to port 8443 of your local PC.
+Port mapping for ```HTTP```  : TCP port 80, inside the container, will be mapped to port 8080 on the local host.  
+Port mapping for ```HTTPS``` : TCP port 443, inside the container, will be mapped to port 8443 on the local host.
 
 # Testing the container
+## HTTP
 Open your browser and type the following url to access the default page of the container with HTTP.
 ```url
 http://localhost:8080
 ```
-
+## HTTPS
 Open your browser and type the following url to access the default page of the container with HTTPS.
 You will get an error from your browsing about the ```self signed``` certificate. This error can be safely ignored.
 ```url
@@ -93,10 +95,15 @@ docker run -it --rm --entrypoint /bin/sh --name test php8_nginx
 ```
 The container will terminate as soon as you exit the shell.
 
-This will run the container and map a local directory, in our case ```Downloads```, to the ```www``` directory inside the container.  
-You can now change the ```html``` or ```php``` files without rebuilding the image.
+This will run the container and map a local directory, in our case ```Downloads```, to the root directory of Nginx, ```www```, inside the container.  
+That gives you the possibility to change (test) the ```html``` or ```php``` files without rebuilding the image.
 ```sh
 docker run --rm -d -p 8080:80 -p 8443:443 --name web -v ~/Downloads/:/www php8_nginx
+```
+
+Don't forget to terminate the container, when you're done:
+```sh   
+docker rm -f web
 ```
 
 # [CHANGELOG](./CHANGELOG.md)
