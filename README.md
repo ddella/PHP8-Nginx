@@ -46,7 +46,7 @@ cd php8-nginx
 # Get the Alpine Mini Root FileSystem (~2.7MB).
 curl -O https://dl-cdn.alpinelinux.org/alpine/v3.15/releases/x86/alpine-minirootfs-3.15.0-x86.tar.gz
 ```
-# Build the Docker image from scratch. Don't forget the '.' at the end of the command.
+## Build the Docker image from scratch. Don't forget the '.' at the end of the command.
 ```sh
 docker build -t php8_nginx .
 ```
