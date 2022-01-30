@@ -21,7 +21,7 @@ http://<load balancer>/phpvariables.php
 3. ```phpvariables.php``` -> This is the phpinfo(INFO_VARIABLES) function
 4. ```superglobals.php``` -> This is a self made file based on phpinfo() function
 
-The build is a five steps process:
+The build is a five step process:
 
 1. Clone the files from github.
 2. Download the Alpine mini root filesystem. We start our container with this. See an extract of the ```Dockerfile```.
@@ -50,7 +50,7 @@ Download Alpine mini root filesystem and place it in the same directory as ```Do
 curl -O https://dl-cdn.alpinelinux.org/alpine/v3.15/releases/x86/alpine-minirootfs-3.15.0-x86.tar.gz
 ```
 
-## Build the Docker image from scratch.
+# Build the Docker image from scratch.
 This command builds the Docker image. Don't forget the ```.``` at the end of the command.
 ```sh
 docker build -t php8_nginx .
@@ -61,9 +61,9 @@ The following commands will run your container.
 ```sh
 docker run --rm -d -p 8080:80 -p 8443:443 --name web php8_nginx
 ```
-
-Port mapping for ```HTTP```  : TCP port 80, inside the container, will be mapped to port 8080 on the local host.  
-Port mapping for ```HTTPS``` : TCP port 443, inside the container, will be mapped to port 8443 on the local host.
+Port mapping for ```HTTP```  : TCP port ```80```, inside the container, will be mapped to port ```8080``` on the local host.  
+Port mapping for ```HTTPS``` : TCP port ```443```, inside the container, will be mapped to port ```8443``` on the local host.  
+The  ```8080``` and  ```8443``` can be changed. They're the ports on the local Docker host.
 
 # Testing the container
 ## HTTP
@@ -73,7 +73,8 @@ http://localhost:8080
 ```
 ## HTTPS
 Open your browser and type the following url to access the default page of the container with HTTPS.
-You will get an error from your browsing about the ```self signed``` certificate. This error can be safely ignored.
+You will get an error from your browser about the ```self signed``` certificate. This error can be safely ignored.  
+If this really bothers you, you can change the files ```nginx-certificate.crt```and ```nginx.key```.
 ```url
 https://localhost:8443
 ```
@@ -89,7 +90,6 @@ The size of the container is only ~30MB.
 
 # Troubleshooting ONLY
 This command gives you a shell access to the container. Not to be used in production.
-
 ```bash
 docker run -it --rm --entrypoint /bin/sh --name test php8_nginx
 ```
