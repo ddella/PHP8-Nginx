@@ -94,7 +94,7 @@ The container will terminate as soon as you exit the shell.
 This will run the container and map a local directory, in our case ```Downloads```, to the ```www``` directory inside the container.  
 You can now change the ```html``` or ```php``` files without rebuilding the image.
 ```sh
-docker run --rm -d -p 8080:80 -p 8443:443 --name test -v ~/Downloads/:/www php8_nginx
+docker run --rm -d -p 8080:80 -p 8443:443 --name web -v ~/Downloads/:/www php8_nginx
 ```
 
 # [CHANGELOG](./CHANGELOG.md)
