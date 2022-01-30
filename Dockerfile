@@ -27,11 +27,19 @@ RUN chown -R www:www /www
 # Copy Nginx configuration file
 COPY nginx.conf /etc/nginx/
 
+# Copy SSL key & certificate
+RUN ["mkdir", "-p", "/etc/nginx/certificate/"]
+COPY --chown=www-data:www-data nginx-certificate.crt /etc/nginx/certificate/nginx-certificate.crt
+
+COPY nginx.key /etc/nginx/certificate/nginx.key
+RUN ["chmod", "400", "/etc/nginx/certificate/nginx.key"]
+
 # Copy existing application directory permissions
 COPY --chown=www-data:www-data ./www/* /www/
 
-# Expose port 80 and start Nginx
+# Expose port 80, 443 and start Nginx
 EXPOSE 80
+EXPOSE 443
 
 COPY entrypoint.sh /root
 ENTRYPOINT ["sh", "/root/entrypoint.sh"] 

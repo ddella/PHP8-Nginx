@@ -11,7 +11,7 @@
 This will build a Docker image, from scratch. It is based on Alpine Linux 3.15, Nginx 1.20 and PHP 8.
 Three files will be copied on the ```www``` directory of the container.
 This container can be used to test ```load balancer``` fronting web servers.
-Just hit your load balancer with the following url to get the IP address of the web server servicing the requests.
+Just point your browser to you load balancer's with the following url. The page gives you lots of information about the request.
 ```url
 http://<load balancer>/phpvariables.php
 ```
@@ -35,45 +35,62 @@ ADD alpine-minirootfs-3.15.0-x86_64.tar.gz /
 
 # Alpine Mini Root FileSystem
 This will build a Docker image from scratch. It will be based on Alpine Linux 3.15.0 and we will install the minimum PHP8.
-Download the Mini root filesystem and place it in the same directory as the Dockerfile.
+Download the Mini root filesystem and place it in the same directory as the ```Dockerfile```.
 https://dl-cdn.alpinelinux.org/alpine/v3.15/releases/x86/alpine-minirootfs-3.15.0-x86.tar.gz
 ```sh
-# Get all the files for GitHub
+# Copy all the files for GitHub to your local drive.
 git clone https://github.com/ddella/PHP8-Nginx.git
 cd php8-nginx
 
-# Get the Alpine Mini Root FileSystem (~2.7MB)
+# Get the Alpine Mini Root FileSystem (~2.7MB).
 curl -O https://dl-cdn.alpinelinux.org/alpine/v3.15/releases/x86/alpine-minirootfs-3.15.0-x86.tar.gz
 
-# Build the Docker image from scratch. Don't forget the '.' at the end.
+# Build the Docker image from scratch. Don't forget the '.' at the end of the command.
 docker build -t php8_nginx .
 ```
 
-# Running
-This will run the container, if you have Docker locally installed.
-```sh   
-docker run --rm -d -p 8080:80 --name web php8_nginx
+# Running the container locally
+If you have Docker locally installed, the following commands will run your container.
+
+This will run the container.
+HTTP: TCP port 80 will be mapped to port 8080 of your local PC.
+HTTPS: TCP port 443 will be mapped to port 8443 of your local PC.
+```sh
+docker run --rm -d -p 8080:80 -p 8443:443 --name web php8_nginx
 ```
 
-# Testing
-Open your browser and type the following url to access the default page.
+# Run the container and map a local directory
+This will run the container and map a local directory, in our case ```Downloads```, to the ```www``` directory inside the container. You can now change the ```html``` or ```php``` files without rebuilding the image.
+```sh
+docker run --rm -d -p 8080:80 -p 8443:443 --name web -v ~/Downloads/:/www php8_nginx
+```
+
+# Testing the container
+Open your browser and type the following url to access the default page of the container with HTTP.
 ```url
 http://localhost:8080
 ```
+
+Open your browser and type the following url to access the default page of the container with HTTPS.
+You will get an error from your browsing about the ```self signed``` certificate. This error can be safely ignored.
+```url
+https://localhost:8443
+```
+
 # Terminate the container
-This will terminate the container launched in the preceeding step:
+This will terminate the container launched in the preceding step:
 ```sh   
 docker rm -f web
 ```
 
 # Container size
-The size of the container is 30.3MB.
+The size of the container is only ~30MB.
 
 # Troubleshooting ONLY
 This command gives you a shell access to the container. Not to be used in production.
 
 ```bash
-docker run -it --rm --entrypoint /bin/sh --name web1 php8_nginx
+docker run -it --rm --entrypoint /bin/sh --name web php8_nginx
 ```
 The container will terminate as soon as you exit the shell.
 
