@@ -53,7 +53,9 @@ docker build -t php8_nginx .
 If you have Docker locally installed, the following commands will run your container.
 
 This will run the container.
+
 HTTP: TCP port 80 will be mapped to port 8080 of your local PC.
+
 HTTPS: TCP port 443 will be mapped to port 8443 of your local PC.
 ```sh
 docker run --rm -d -p 8080:80 -p 8443:443 --name web php8_nginx
