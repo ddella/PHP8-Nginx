@@ -87,14 +87,14 @@ The size of the container is only ~30MB.
 This command gives you a shell access to the container. Not to be used in production.
 
 ```bash
-docker run -it --rm --entrypoint /bin/sh --name web php8_nginx
+docker run -it --rm --entrypoint /bin/sh --name test php8_nginx
 ```
 The container will terminate as soon as you exit the shell.
 
 This will run the container and map a local directory, in our case ```Downloads```, to the ```www``` directory inside the container.  
 You can now change the ```html``` or ```php``` files without rebuilding the image.
 ```sh
-docker run --rm -d -p 8080:80 -p 8443:443 --name web -v ~/Downloads/:/www php8_nginx
+docker run --rm -d -p 8080:80 -p 8443:443 --name test -v ~/Downloads/:/www php8_nginx
 ```
 
 # [CHANGELOG](./CHANGELOG.md)
