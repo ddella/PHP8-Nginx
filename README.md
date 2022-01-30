@@ -9,9 +9,9 @@
 
 # Introduction
 This will build a Docker image, from scratch. It is based on Alpine Linux 3.15, Nginx 1.20 and PHP 8.
-Three files will be copied on the ```www``` directory of the container.
-This container can be used to test ```load balancer``` fronting web servers.
-Just point your browser to you load balancer's with the following url. The page gives you lots of information about the request.
+Three files will be copied on the ```www``` directory of the container.  
+This container can be used to test a ```load balancer``` fronting a farm of web servers.
+Just point your browser to your load balancer with the following url and the page gives you lots of information about the request.
 ```url
 http://<load balancer>/phpvariables.php
 ```
@@ -61,12 +61,6 @@ This will run the container.
 docker run --rm -d -p 8080:80 -p 8443:443 --name web php8_nginx
 ```
 
-# Run the container and map a local directory
-This will run the container and map a local directory, in our case ```Downloads```, to the ```www``` directory inside the container. You can now change the ```html``` or ```php``` files without rebuilding the image.
-```sh
-docker run --rm -d -p 8080:80 -p 8443:443 --name web -v ~/Downloads/:/www php8_nginx
-```
-
 # Testing the container
 Open your browser and type the following url to access the default page of the container with HTTP.
 ```url
@@ -95,6 +89,12 @@ This command gives you a shell access to the container. Not to be used in produc
 docker run -it --rm --entrypoint /bin/sh --name web php8_nginx
 ```
 The container will terminate as soon as you exit the shell.
+
+This will run the container and map a local directory, in our case ```Downloads```, to the ```www``` directory inside the container.  
+You can now change the ```html``` or ```php``` files without rebuilding the image.
+```sh
+docker run --rm -d -p 8080:80 -p 8443:443 --name web -v ~/Downloads/:/www php8_nginx
+```
 
 # [CHANGELOG](./CHANGELOG.md)
 
