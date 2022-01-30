@@ -16,9 +16,10 @@ Just point your browser to you load balancer's with the following url. The page 
 http://<load balancer>/phpvariables.php
 ```
 
-1. index.html -> The main page when accessing the web server
-2. phpinfo.php -> This is the phpinfo() function
-3. phpvariables.php -> This is the phpinfo(INFO_VARIABLES) function
+1. ```index.html``` -> The main page when accessing the web server
+2. ```phpinfo.php``` -> This is the phpinfo() function
+3. ```phpvariables.php``` -> This is the phpinfo(INFO_VARIABLES) function
+4. ```superglobals.php``` -> This is a self made file based on phpinfo() function
 
 The build is in four steps:
 
