@@ -17,7 +17,7 @@ RUN ["chmod", "+x", "/root/php8.sh"]
 RUN ["/root/php8.sh"]
 
 # Creating new user and group 'www' for nginx 
-RUN adduser -D -g 'www' www
+RUN adduser -D -g www www
 
 # Create a directory for html files
 RUN mkdir /www
@@ -29,13 +29,13 @@ COPY nginx.conf /etc/nginx/
 
 # Copy SSL key & certificate
 RUN ["mkdir", "-p", "/etc/nginx/certificate/"]
-COPY --chown=www-data:www-data nginx-certificate.crt /etc/nginx/certificate/nginx-certificate.crt
+COPY --chown=www:www nginx-certificate.crt /etc/nginx/certificate/nginx-certificate.crt
 
 COPY nginx.key /etc/nginx/certificate/nginx.key
 RUN ["chmod", "400", "/etc/nginx/certificate/nginx.key"]
 
 # Copy existing application directory permissions
-COPY --chown=www-data:www-data ./www/* /www/
+COPY --chown=www:www ./www/* /www/
 
 # Expose port 80, 443 and start Nginx
 EXPOSE 80
