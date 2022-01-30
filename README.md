@@ -21,10 +21,10 @@ http://<load balancer>/phpvariables.php
 3. ```phpvariables.php``` -> This is the phpinfo(INFO_VARIABLES) function
 4. ```superglobals.php``` -> This is a self made file based on phpinfo() function
 
-The build is in four steps:
+The build is a five steps process:
 
 1. Clone the files from github.
-2. Download the Alpine mini root filesystem. We start our container with this. See an the extract from the ```Dockerfile```.
+2. Download the Alpine mini root filesystem. We start our container with this. See an extract of the ```Dockerfile```.
 ```Docker
 # Set master image
 FROM scratch
@@ -101,7 +101,7 @@ That gives you the possibility to change (test) the ```html``` or ```php``` file
 docker run --rm -d -p 8080:80 -p 8443:443 --name web -v ~/Downloads/:/www php8_nginx
 ```
 
-Don't forget to terminate the container, when you're done:
+Don't forget to terminate the container when you're done:
 ```sh   
 docker rm -f web
 ```
