@@ -34,33 +34,35 @@ ADD alpine-minirootfs-3.15.0-x86_64.tar.gz /
 3. Install Nginx and PHP 8.
 4. Copy and execute some scripts to finalize the installation.
 
-# Alpine Mini Root FileSystem
-This will build a Docker image from scratch. It will be based on Alpine Linux 3.15.0 and we will install the minimum PHP8.
-Download the Mini root filesystem and place it in the same directory as the ```Dockerfile```.
-https://dl-cdn.alpinelinux.org/alpine/v3.15/releases/x86/alpine-minirootfs-3.15.0-x86.tar.gz
+# Copy all the files needed to build the image
+This will build a Docker image from scratch. It will be based on Alpine Linux 3.15.0 with Nginx web server and PHP8.
 ```sh
 # Copy all the files for GitHub to your local drive.
 git clone https://github.com/ddella/PHP8-Nginx.git
 cd php8-nginx
+```
 
+# Alpine Mini Root FileSystem
+Download Alpine mini root filesystem and place it in the same directory as ```Dockerfile```.
+```sh
 # Get the Alpine Mini Root FileSystem (~2.7MB).
 curl -O https://dl-cdn.alpinelinux.org/alpine/v3.15/releases/x86/alpine-minirootfs-3.15.0-x86.tar.gz
 ```
-## Build the Docker image from scratch. Don't forget the '.' at the end of the command.
+
+## Build the Docker image from scratch.
+This command builds the Docker image. Don't forget the ```.``` at the end of the command.
 ```sh
 docker build -t php8_nginx .
 ```
 
 # Running the container locally
-If you have Docker locally installed, the following commands will run your container.
-
-This will run the container.
-
-```HTTP```  : TCP port 80, inside the container, will be mapped to port 8080 of your local PC.  
-```HTTPS```: TCP port 443, inside the container, will be mapped to port 8443 of your local PC.
+The following commands will run your container.
 ```sh
 docker run --rm -d -p 8080:80 -p 8443:443 --name web php8_nginx
 ```
+
+```HTTP```  : TCP port 80, inside the container, will be mapped to port 8080 of your local PC.  
+```HTTPS```: TCP port 443, inside the container, will be mapped to port 8443 of your local PC.
 
 # Testing the container
 Open your browser and type the following url to access the default page of the container with HTTP.
