@@ -40,9 +40,10 @@ RUN ["chmod", "400", "/etc/nginx/certificate/nginx.key"]
 # Copy local html/php files & set user/group
 COPY --chown=www:www ./www/* /www/
 
-# Expose port 80, 443 and start Nginx
+# Expose port 80, 443
 EXPOSE 80
 EXPOSE 443
 
+# Start PHP-fpm (FastCGI Process Manager) and Nginx
 COPY ["entrypoint.sh", "/root"]
 ENTRYPOINT ["sh", "/root/entrypoint.sh"] 

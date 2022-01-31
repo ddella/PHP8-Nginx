@@ -19,7 +19,7 @@ http://<load balancer>/phpvariables.php
 1. ```index.html``` -> The main page when accessing the web server
 2. ```phpinfo.php``` -> This is the phpinfo() function
 3. ```phpvariables.php``` -> This is the phpinfo(INFO_VARIABLES) function
-4. ```superglobals.php``` -> This is a self made file, based on phpinfo() function (not very usefull 😀)
+4. ```superglobals.php``` -> This is a self made file, based on phpinfo() function (not very useful 😀)
 
 The build is a five step process:
 
@@ -89,18 +89,27 @@ docker rm -f web
 The size of the container is only ~30MB.
 
 # Troubleshooting ONLY
+## Shell access to the container
 This command gives you a shell access to the container. Not to be used in production.
 ```bash
 docker run -it --rm --entrypoint /bin/sh --name test php8_nginx
 ```
 The container will terminate as soon as you exit the shell.
 
+## Map container ```www```directory locally
 This will run the container and map a local directory, in our case ```Downloads```, to the root directory of Nginx, ```www```, inside the container.  
 That gives you the possibility to change (test) the ```html``` or ```php``` files without rebuilding the image.
 ```sh
 docker run --rm -d -p 8080:80 -p 8443:443 --name web -v ~/Downloads/:/www php8_nginx
 ```
 
+## Map container ```log```directory locally
+This will run the container and map a local directory, in our case ```Downloads```, to the log directory of Nginx, ```/var/log/nginx```, inside the container.  
+That gives you the possibility to look at the Nginx log files.
+```sh
+docker run --rm -d -p 8080:80 -p 8443:443 --name web -v ~/Downloads/:/var/log/nginx php8_nginx
+```
+## Terminate container
 Don't forget to terminate the container when you're done:
 ```sh   
 docker rm -f web
