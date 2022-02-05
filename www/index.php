@@ -5,6 +5,11 @@ behind a load balancer.
 
 Icons taken from: https://www.svgrepo.com/svg/35710/external
 <img border="0" alt="test" src="images/external-svgrepo-com.svg" width="10" height="10">
+
+Filter color from:
+https://stackoverflow.com/questions/22252472/how-to-change-the-color-of-an-svg-element
+https://codepen.io/sosuke/pen/Pjoqqp
+
 */
 
 echo <<<END
@@ -42,8 +47,14 @@ echo <<<END
      .center th {text-align: center !important;}
      td, th {border: 1px solid #666; font-size: 75%; vertical-align: baseline; padding: 4px 5px;}
      th {position: sticky; top: 0; background: inherit;}
-     h1 {font-size: 150%;}
-     h2 {font-size: 125%;}
+     h1 {
+        font-size: 150%;
+        color: #ebebeb;
+     }
+     h2 {
+        font-size: 125%;
+        color: #ebebeb;
+     }
      .p {text-align: left;}
      /* Left column */
      .e {font-size: 100%;background-color: #ccf; color: #282828; width: 200px; font-weight: bold;}
@@ -55,11 +66,21 @@ echo <<<END
      .bl {background-color: #000000; color: #000000;}
      img {float: right; border: 0;}
      hr {width: 934px; background-color: #ccc; border: 0; height: 1px;}
-     #extlink  {
+     .extlink  {
       float: none;
       margin: 0 0 0 3px;
-      filter: invert(100%);
+      filter: invert(50%);
+      filter: invert(21%) sepia(100%) saturate(2518%) hue-rotate(212deg) brightness(105%) contrast(107%);
+      width: 15px;
+      height: 15px;
      }
+
+     .extlink:hover  {
+      float: none;
+      margin: 0 0 0 3px;
+      filter: invert(68%) sepia(28%) saturate(2515%) hue-rotate(189deg) brightness(104%) contrast(101%);
+     }
+
    </style></head>
 <body>
    <div class="center">
@@ -68,12 +89,14 @@ END;
       echo '<h1>PHP ' . phpversion() . '</h1>';
 echo <<<END
       <h2>Congratulations! Docker container test page</h2><br><br>
-      <h2><a href="phpinfo.php" target="_blank">PHP full info page
-      <img src="images/external-svgrepo-com.svg" width="15" height="15" id="extlink"/></a></h2>
-      <h2><a href="phpvariables.php" target="_blank">PHP variables-only info page
-      <img src="images/external-svgrepo-com.svg" width="15" height="15" id="extlink"/></a></h2>
-      <h2><a href="superglobals.php" target="_blank">PHP Superglobals variables
-      <img src="images/external-svgrepo-com.svg" width="15" height="15" id="extlink"/></a></h2>
+
+      <h2>PHP full info page<a href="phpinfo.php" target="_blank">
+      <img src="images/external-svgrepo-com.svg" class="extlink"/></a></h2>
+
+      <h2>PHP variables-only info page<a href="phpvariables.php" target="_blank">
+      <img src="images/external-svgrepo-com.svg" class="extlink"/></a></h2>
+      <h2>PHP Superglobals variables<a href="superglobals.php" target="_blank">
+      <img src="images/external-svgrepo-com.svg" class="extlink"/></a></h2>
 <table>
 <tr class=h><th>Description</th><th>Value</th></tr>
 END;
