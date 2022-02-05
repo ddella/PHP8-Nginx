@@ -16,7 +16,7 @@ Just point your browser to your load balancer with the following url and the pag
 http://<load balancer>/phpvariables.php
 ```
 
-1. ```index.html``` -> The main page when accessing the web server
+1. ```index.php``` -> The main page when accessing the web server
 2. ```phpinfo.php``` -> This is the phpinfo() function
 3. ```phpvariables.php``` -> This is the phpinfo(INFO_VARIABLES) function
 4. ```superglobals.php``` -> This is a self made file, based on phpinfo() function (not very useful 😀)
