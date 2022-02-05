@@ -72,15 +72,14 @@ docker run --rm -d -p 8080:80 -p 8443:443 TZ='EST+5EDT,M3.2.0/2,M11.1.0/2' --nam
 ```
 The ```TZ``` environnement variable represents the timezone. See [GNU](https://www.gnu.org/software/libc/manual/html_node/TZ-Variable.html).  
 The ```TZ```contains five fields. ```[std][offset][dst],[start],[end]```  
-. ```[std]```: String of standard timezone
-. ```[dst]```: String of daylight timezone
+. ```[std]```: String of standard timezone  
+. ```[dst]```: String of daylight timezone  
 . ```[start]```: Start of Daylight time, see Mm.w.d  
 . ```[offset]```: The offset from UTC  
 . ```[end]```: End of Daylight time, Mm.w.d  
 The month M```m``` must be between 1 and 12  
 The week ```w``` must be between 1 and 5  
 The day ```d``` must be between 0 (Sunday) and 6  
-
 
 # Testing the container
 ## HTTP
