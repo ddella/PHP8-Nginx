@@ -4,11 +4,17 @@ Script to print just the PHP[$_SERVER] variables needed to test a web server
 behind a load balancer.
 
 Icons taken from: https://www.svgrepo.com/svg/35710/external
-<img border="0" alt="test" src="images/external-svgrepo-com.svg" width="10" height="10">
+<img border="0" alt="test" src="images/external-link.svg" width="10" height="10">
 
 Filter color from:
 https://stackoverflow.com/questions/22252472/how-to-change-the-color-of-an-svg-element
 https://codepen.io/sosuke/pen/Pjoqqp
+
+HTML colors:
+https://html-color.codes/
+
+Favicon:
+https://icon-library.com/icon/load-balancer-icon-16.html
 
 */
 
@@ -18,25 +24,26 @@ echo <<<END
 <head>
    <meta charset="utf-8" />
    <title>Nginx and PHP8</title>
+   <link rel="icon" type="image/x-icon" href="/images/load-balancer-favicon.jpg">
    <meta name="ROBOTS" content="NOINDEX,NOFOLLOW,NOARCHIVE" />
    <style type="text/css">
      body {background-color: #282828; color: #F5F5F5; font-family: sans-serif;}
      pre {margin: 0; font-family: monospace;}
 
      a:link {
-       color: #0066ff;
+       color: #c2c2c2;
        background-color: transparent;
        text-decoration: none;
      }
 
      a:visited {
-       color: #0066ff;
+       color: #c2c2c2;
        background-color: transparent;
        text-decoration: none;
      }
 
      a:hover {
-       color: #80b3ff;
+       color: #ebebeb;
        background-color: transparent;
        text-decoration: none;
      }
@@ -69,10 +76,9 @@ echo <<<END
      .extlink  {
       float: none;
       margin: 0 0 0 3px;
-      filter: invert(50%);
       filter: invert(21%) sepia(100%) saturate(2518%) hue-rotate(212deg) brightness(105%) contrast(107%);
-      width: 15px;
-      height: 15px;
+      width: 18px;
+      height: 18px;
      }
 
      .extlink:hover  {
@@ -91,12 +97,12 @@ echo <<<END
       <h2>Congratulations! Docker container test page</h2><br><br>
 
       <h2>PHP full info page<a href="phpinfo.php" target="_blank">
-      <img src="images/external-svgrepo-com.svg" class="extlink"/></a></h2>
+      <img src="images/external-link.svg" class="extlink"/></a></h2>
 
       <h2>PHP variables-only info page<a href="phpvariables.php" target="_blank">
-      <img src="images/external-svgrepo-com.svg" class="extlink"/></a></h2>
+      <img src="images/external-link.svg" class="extlink"/></a></h2>
       <h2>PHP Superglobals variables<a href="superglobals.php" target="_blank">
-      <img src="images/external-svgrepo-com.svg" class="extlink"/></a></h2>
+      <img src="images/external-link.svg" class="extlink"/></a></h2>
 <table>
 <tr class=h><th>Description</th><th>Value</th></tr>
 END;
@@ -126,8 +132,9 @@ echo "<tr><td class=\"e\">Container destination TCP port</td><td class=\"v\">" .
 echo "<tr><td class=\"e\">Container local file</td><td class=\"v\">" . $_SERVER['SCRIPT_FILENAME'] . "</td></tr>\r\n";
 echo "<tr><td class=\"e\">Container root directory</td><td class=\"v\">" . $_SERVER['DOCUMENT_ROOT'] . "</td></tr>\r\n";
 
-echo "</table>\r\n";
-
-echo '</body>';
-echo '</html>';
+echo <<<END
+</table>
+</body>
+</html>
+END;
 ?>
