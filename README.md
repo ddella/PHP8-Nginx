@@ -71,7 +71,7 @@ The following commands will run your container and sets the timezone to EST.
 docker run --rm -d -p 8080:80 -p 8443:443 TZ='EST+5EDT,M3.2.0/2,M11.1.0/2' --name web php8_nginx
 ```
 
-```[std][offset][dst],[start],[end]```
+```[std][offset][dst],[start],[end]```  
 [start]: Start of Daylight time Mm.w.d
 [end]: End of Daylight time Mm.w.d
 The month M```m``` should be between 1 and 12
