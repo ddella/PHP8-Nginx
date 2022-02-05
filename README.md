@@ -65,6 +65,19 @@ Port mapping for ```HTTP```  : TCP port ```80```, inside the container, will be 
 Port mapping for ```HTTPS``` : TCP port ```443```, inside the container, will be mapped to port ```8443``` on the local host.  
 The  ```8080``` and  ```8443``` can be changed. They're the ports on the local Docker host.
 
+# Running the container locally and sets the date_default_timezone_get
+The following commands will run your container and sets the timezone to EST.
+```sh
+docker run --rm -d -p 8080:80 -p 8443:443 TZ='EST+5EDT,M3.2.0/2,M11.1.0/2' --name web php8_nginx
+```
+
+```[std][offset][dst],[start],[end]```
+[start]: Start of Daylight time Mm.w.d
+[end]: End of Daylight time Mm.w.d
+The month M```m``` should be between 1 and 12
+The week ```w``` must be between 1 and 5
+The day ```d``` must be between 0 (Sunday) and 6
+
 # Testing the container
 ## HTTP
 Open your browser and type the following url to access the default page of the container with HTTP.
