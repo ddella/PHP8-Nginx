@@ -67,7 +67,6 @@ echo <<<END
 <table>
 <tr class=h><th>Description</th><th>Value</th></tr>
 END;
-//echo "<table cellpadding=\"10\"; text-align: left;>";
 
 // Browser section
 echo "<tr><td class=\"e\">Client request</td><td class=\"v\">" . $_SERVER['HTTP_REFERER'] . "</td></tr>\r\n";
