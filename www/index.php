@@ -2,6 +2,9 @@
 /*
 Script to print just the PHP[$_SERVER] variables needed to test a web server
 behind a load balancer.
+
+Icons taken from: https://www.svgrepo.com/svg/35710/external
+<img border="0" alt="test" src="images/external-svgrepo-com.svg" width="10" height="10">
 */
 
 echo <<<END
@@ -52,7 +55,11 @@ echo <<<END
      .bl {background-color: #000000; color: #000000;}
      img {float: right; border: 0;}
      hr {width: 934px; background-color: #ccc; border: 0; height: 1px;}
-
+     #extlink  {
+      float: none;
+      margin: 0 0 0 3px;
+      filter: invert(100%);
+     }
    </style></head>
 <body>
    <div class="center">
@@ -61,9 +68,12 @@ END;
       echo '<h1>PHP ' . phpversion() . '</h1>';
 echo <<<END
       <h2>Congratulations! Docker container test page</h2><br><br>
-      <h2><a href="phpinfo.php" target="_blank">PHP full info page</a></h2>
-      <h2><a href="phpvariables.php" target="_blank">PHP variables-only info page </a></h2>
-      <h2><a href="superglobals.php" target="_blank">PHP Superglobals variables</a></h2>
+      <h2><a href="phpinfo.php" target="_blank">PHP full info page
+      <img src="images/external-svgrepo-com.svg" width="15" height="15" id="extlink"/></a></h2>
+      <h2><a href="phpvariables.php" target="_blank">PHP variables-only info page
+      <img src="images/external-svgrepo-com.svg" width="15" height="15" id="extlink"/></a></h2>
+      <h2><a href="superglobals.php" target="_blank">PHP Superglobals variables
+      <img src="images/external-svgrepo-com.svg" width="15" height="15" id="extlink"/></a></h2>
 <table>
 <tr class=h><th>Description</th><th>Value</th></tr>
 END;
