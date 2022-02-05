@@ -72,11 +72,12 @@ docker run --rm -d -p 8080:80 -p 8443:443 TZ='EST+5EDT,M3.2.0/2,M11.1.0/2' --nam
 ```
 
 ```[std][offset][dst],[start],[end]```  
-[start]: Start of Daylight time Mm.w.d
-[end]: End of Daylight time Mm.w.d
-The month M```m``` should be between 1 and 12
-The week ```w``` must be between 1 and 5
-The day ```d``` must be between 0 (Sunday) and 6
+```[start]```: Start of Daylight see Mm.w.d  
+```[offset]```:
+```[end]```: End of Daylight time Mm.w.d  
+The month M```m``` must be between 1 and 12  
+The week ```w``` must be between 1 and 5  
+The day ```d``` must be between 0 (Sunday) and 6  
 
 # Testing the container
 ## HTTP
