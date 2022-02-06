@@ -79,11 +79,10 @@ END;
 
 echo "<br><br><br>";
 if(!isset($_COOKIE[$cookie_name])) {
-   echo "It's you first time visiting server at address: <b>" . $_SERVER['REMOTE_ADDR'] . "</b>!";
+   echo "<h2>It's you first time visiting server at address: <b><span style=\"color:#0066ff;\">" . $_SERVER['REMOTE_ADDR'] . "</span></b></h2>";
 } else {
-   echo "You already visited me: <b>" . $_SERVER['REMOTE_ADDR'] . "</b>.<br><br>";
-   echo "Cookie <b>" . $cookie_name . "</b> is set.<br><br>";
-   echo "Value is: <b>" . $_COOKIE[$cookie_name] . "</b>.<br>";
+   echo "<h2>You already visited me: <b><span style=\"color:#0066ff;\">" . $_SERVER['REMOTE_ADDR'] . "</span></b></h2>";
+   echo "<h2>Cookie <b><span style=\"color:#0066ff;\">" . $cookie_name . "</span></b> is set to <span style=\"color:#0066ff;\">" . $_COOKIE[$cookie_name] . "</span></b></h2>";
 }
 
 $phptz = getenv('TIMEZONE');
