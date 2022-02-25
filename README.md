@@ -127,6 +127,13 @@ That gives you the possibility to look at the Nginx log files.
 ```sh
 docker run --rm -d -p 8080:80 -p 8443:443 --name web --env TZ='EAST+5EDT,M3.2.0/2,M11.1.0/2' --env TIMEZONE='America/New_York' -v ~/Downloads/:/var/log/nginx php8_nginx
 ```
+
+## Main page
+
+This is the main page for the site.
+
+![Alt text for screen readers](images/main_page.jpg "Main page")
+
 ## Terminate container
 Just type ```exit```in the container's shell to quit and terminate the container.
 
