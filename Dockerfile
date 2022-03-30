@@ -1,6 +1,6 @@
-# Set master image
+# Set master image, Mini root filesystem from https://www.alpinelinux.org/downloads/
 FROM scratch
-ADD ["alpine-minirootfs-3.15.0-x86_64.tar.gz", "/"]
+ADD ["alpine-minirootfs-3.15.3-x86_64.tar.gz", "/"]
 
 LABEL Maintainer="DDN <daniel@isociel.com>"
 LABEL Description="Lightweight container with Nginx and PHP 8 on Alpine."
