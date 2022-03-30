@@ -5,7 +5,7 @@
 |:---|:---|
 |**Alpine**|3.15.3|
 |**NGINX**|1.20.2|
-|**PHP8**|8.0.14|
+|**PHP8**|8.0.16|
 
 # Introduction
 This will build a Docker image, from scratch. It is based on Alpine Linux 3.15, Nginx 1.20 and PHP 8.
