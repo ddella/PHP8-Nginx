@@ -3,20 +3,23 @@ FROM scratch
 ADD ["alpine-minirootfs-3.15.3-x86_64.tar.gz", "/"]
 
 LABEL Maintainer="DDN <daniel@isociel.com>"
-LABEL Description="Lightweight container with Nginx and PHP 8 on Alpine."
+LABEL Description="Lightweight container with Nginx and PHP 8 on Alpine 3.15."
 
 # Nginx Installation
-RUN ["apk", "--no-cache", "upgrade"]
-RUN ["apk", "--no-cache", "add", "nginx"]
+# RUN ["apk", "--no-cache", "upgrade"]
+# RUN ["apk", "--no-cache", "add", "nginx"]
+COPY nginx.sh /tmp
+RUN ["/bin/sh","/tmp/ngix.sh"]
+RUN ["rm", "-f", "/tmp/php8.sh"]
 
 # PHP8 Installation
 RUN ["apk", "--no-cache", "add", "php8", "php8-fpm", "php8-pdo", "php8-pdo_mysql", "php8-mysqli"]
 
-COPY php8.sh /root
+COPY php8.sh /tmp
 # Make the script 'executable'. Prevents the error: permission denied unknown
-RUN ["chmod", "+x", "/root/php8.sh"]
-RUN ["/root/php8.sh"]
-RUN ["rm", "-f", "/root/php8.sh"]
+# RUN ["chmod", "+x", "/root/php8.sh"]
+RUN ["/bin/sh","/tmp/php8.sh"]
+RUN ["rm", "-f", "/tmp/php8.sh"]
 
 # Creating a user and group 'www' for nginx
 RUN ["adduser", "-D", "-H", "www", "www"]
