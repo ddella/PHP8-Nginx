@@ -1,6 +1,5 @@
 #!/bin/sh
-
-# Install Nginx packages
+# Install Nginx from mailine
 
 # Install the prerequisites
 apk --no-cache add openssl curl ca-certificates
@@ -12,3 +11,11 @@ curl -o /tmp/nginx_signing.rsa.pub https://nginx.org/keys/nginx_signing.rsa.pub
 mv /tmp/nginx_signing.rsa.pub /etc/apk/keys/
 # install nginx
 apk add nginx@nginx
+
+# Create Nginx user
+adduser -D -H www www
+
+# Create the root directory for Nginx & set permissions
+mkdir /www
+chown -R www:www /usr/share/nginx
+chown -R www:www /www

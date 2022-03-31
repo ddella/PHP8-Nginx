@@ -4,7 +4,7 @@
 |Name|Version|
 |:---|:---|
 |**Alpine**|3.15.3|
-|**NGINX**|1.20.2|
+|**NGINX**|1.21.6|
 |**PHP8**|8.0.16|
 
 # Introduction

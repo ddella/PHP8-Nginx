@@ -6,32 +6,11 @@ LABEL Maintainer="DDN <daniel@isociel.com>"
 LABEL Description="Lightweight container with Nginx and PHP 8 on Alpine 3.15."
 
 # Nginx Installation
-# RUN ["apk", "--no-cache", "upgrade"]
-# RUN ["apk", "--no-cache", "add", "nginx"]
 COPY nginx.sh /tmp
-RUN ["/bin/sh","/tmp/nginx.sh"]
-RUN ["rm", "-f", "/tmp/php8.sh"]
-
-# PHP8 Installation
-RUN ["apk", "--no-cache", "add", "php8", "php8-fpm", "php8-pdo", "php8-pdo_mysql", "php8-mysqli"]
-
-COPY php8.sh /tmp
-# Make the script 'executable'. Prevents the error: permission denied unknown
-# RUN ["chmod", "+x", "/root/php8.sh"]
-RUN ["/bin/sh","/tmp/php8.sh"]
-RUN ["rm", "-f", "/tmp/php8.sh"]
-
-# Creating a user and group 'www' for nginx
-RUN ["adduser", "-D", "-H", "www", "www"]
-
-# Create the root directory for Nginx
-RUN ["mkdir", "/www"]
-RUN ["chown", "-R", "www:www", "/var/lib/nginx"]
-RUN ["chown", "-R", "www:www", "/www"]
-
+RUN ["/bin/sh", "/tmp/nginx.sh"]
+RUN ["rm", "-f", "/tmp/nginx.sh"]
 # Copy Nginx configuration file
 COPY ["nginx.conf", "/etc/nginx/"]
-
 # Copy SSL certificate
 RUN ["mkdir", "-p", "/etc/nginx/certificate/"]
 COPY --chown=www:www nginx-certificate.crt /etc/nginx/certificate/nginx-certificate.crt
@@ -39,6 +18,12 @@ COPY --chown=www:www nginx-certificate.crt /etc/nginx/certificate/nginx-certific
 # Copy SSL key & set permission
 COPY ["nginx.key", "/etc/nginx/certificate/nginx.key"]
 RUN ["chmod", "400", "/etc/nginx/certificate/nginx.key"]
+
+# PHP8 Installation
+RUN ["apk", "--no-cache", "add", "php8", "php8-fpm", "php8-pdo", "php8-pdo_mysql", "php8-mysqli"]
+COPY php8.sh /tmp
+RUN ["/bin/sh", "/tmp/php8.sh"]
+RUN ["rm", "-f", "/tmp/php8.sh"]
 
 # Copy recursively local html/php files & set user/group
 COPY --chown=www:www ./www/ /www/
