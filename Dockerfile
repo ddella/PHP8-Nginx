@@ -9,7 +9,7 @@ LABEL Description="Lightweight container with Nginx and PHP 8 on Alpine 3.15."
 # RUN ["apk", "--no-cache", "upgrade"]
 # RUN ["apk", "--no-cache", "add", "nginx"]
 COPY nginx.sh /tmp
-RUN ["/bin/sh","/tmp/ngix.sh"]
+RUN ["/bin/sh","/tmp/nginx.sh"]
 RUN ["rm", "-f", "/tmp/php8.sh"]
 
 # PHP8 Installation
