@@ -135,6 +135,21 @@ This is the main page for the site.
 
 ![Alt text for screen readers](images/main_page.png "Main page")
 
+## Restarting Nginx inside a Docker container
+
+If you need to restart nginx, try to reload the configuration instead of restarting the service.
+This could be useful if you make modification on the `nginx.conf`.
+
+```command
+docker exec web nginx -s reload
+```
+
+If you must restart the nginx process, restart the container using the command:
+
+```command
+docker restart web
+```
+
 ## Terminate container
 Just type `exit`in the container's shell to quit and terminate the container.
 
