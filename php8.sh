@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# use Alpine edge packages
+# echo "https://dl-cdn.alpinelinux.org/alpine/edge/testing/" >> /etc/apk/repositories
+
 PHP_FPM_USER="www"
 PHP_FPM_GROUP="www"
 PHP_FPM_LISTEN_MODE="0660"

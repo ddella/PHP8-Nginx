@@ -151,7 +151,7 @@ docker restart web
 ```
 
 ## Terminate container
-Just type `exit`in the container's shell to quit and terminate the container.
+Just type `exit` in the container's shell to quit and terminate the container.
 
 # [CHANGELOG](./CHANGELOG.md)
 
