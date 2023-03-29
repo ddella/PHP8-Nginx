@@ -3,12 +3,12 @@
 ## Last Version
 |Name|Version|
 |:---|:---|
-|**Alpine**|3.15.3|
+|**Alpine**|3.17.3|
 |**NGINX**|1.21.6|
-|**PHP8**|8.0.16|
+|**PHP8**|8.1.17|
 
 # Introduction
-This will build a Docker image, from scratch. It is based on Alpine Linux 3.15, Nginx 1.20 and PHP 8.
+This will build a Docker image, from scratch. It is based on Alpine Linux 3.17.3, Nginx 1.20 and PHP 8.1.
 Three files will be copied on the `www` directory of the container.  
 This container can be used to test a `load balancer` fronting a farm of web servers.
 Just point your browser to your load balancer with the following url and the page gives you lots of information about the request.
@@ -28,11 +28,11 @@ The build is a five step process:
 ```Dockerfile
 # Set master image
 FROM scratch
-ADD alpine-minirootfs-3.15.3-x86_64.tar.gz /
+ADD alpine-minirootfs-3.17.3-x86_64.tar.gz /
 ...
 ```
 3. Build the Docker container.
-4. Install Nginx, PHP 8 and execute some scripts to finalize the installation.
+4. Install Nginx, PHP 8.1 and execute some scripts to finalize the installation.
 5. Run the container.
 
 # Copy all the files needed to build the image
@@ -47,19 +47,19 @@ cd php8-nginx
 Download Alpine mini root filesystem and place it in the same directory as `Dockerfile`.
 ```sh
 # Get the Alpine Mini Root FileSystem (~2.7MB).
-curl -O https://dl-cdn.alpinelinux.org/alpine/v3.15/releases/x86/alpine-minirootfs-3.15.3-x86.tar.gz
+curl -O https://dl-cdn.alpinelinux.org/alpine/v3.17/releases/x86_64/alpine-minirootfs-3.17.3-x86_64.tar.gz
 ```
 
 # Build the Docker image from scratch.
 This command builds the Docker image. Don't forget the trailing period `(.)` at the end of the command.
 ```sh
-docker build -t php8_nginx:3.15.3 .
+docker build -t php8_nginx:3.17.3 .
 ```
 
 # Running the container locally
 The following commands will run your container.
 ```sh
-docker run --rm -d -p 8080:80 -p 8443:443 --name web php8_nginx:3.15.3
+docker run --rm -d -p 8080:80 -p 8443:443 --name web php8_nginx:3.17.3
 ```
 Port mapping for `HTTP`  : TCP port `80`, inside the container, will be mapped to port `8080` on the local host.  
 Port mapping for `HTTPS` : TCP port `443`, inside the container, will be mapped to port `8443` on the local host.  
@@ -68,7 +68,7 @@ The  `8080` and  `8443` can be changed. They're the ports on the local Docker ho
 # Running the container locally and sets the local timezone
 The following commands will run your container and sets the timezone to EST.
 ```sh
-docker run --rm -d -p 8080:80 -p 8443:443 --env TZ='EAST+5EDT,M3.2.0/2,M11.1.0/2' --env TIMEZONE='America/New_York' --name web php8_nginx:3.15.3
+docker run --rm -d -p 8080:80 -p 8443:443 --env TZ='EAST+5EDT,M3.2.0/2,M11.1.0/2' --env TIMEZONE='America/New_York' --name web php8_nginx:3.17.3
 ```
 
 The `TIMEZONE` environment variable is for PHP. See [PHP Timezone](https://www.php.net/manual/en/timezones.php).  
@@ -111,7 +111,7 @@ The size of the container is only ~30MB.
 ## Shell access to the container
 This command gives you a shell access to the container. Not to be used in production.
 ```sh
-docker run -it --rm --entrypoint /bin/sh --env TZ='EAST+5EDT,M3.2.0/2,M11.1.0/2' --env TIMEZONE='America/New_York' --name test php8_nginx:3.15.3
+docker run -it --rm --entrypoint /bin/sh --env TZ='EAST+5EDT,M3.2.0/2,M11.1.0/2' --env TIMEZONE='America/New_York' --name test php8_nginx:3.17.3
 ```
 The container will terminate as soon as you exit the shell.
 
@@ -119,14 +119,14 @@ The container will terminate as soon as you exit the shell.
 This will run the container and map a local directory, in our case `Downloads`, to the root directory of Nginx, `www`, inside the container.  
 That gives you the possibility to change (test) the `html` or `php` files without rebuilding the image.
 ```sh
-docker run --rm -d -p 8080:80 -p 8443:443 --name web --env TZ='EAST+5EDT,M3.2.0/2,M11.1.0/2' --env TIMEZONE='America/New_York' -v ~/Downloads/:/www php8_nginx:3.15.3
+docker run --rm -d -p 8080:80 -p 8443:443 --name web --env TZ='EAST+5EDT,M3.2.0/2,M11.1.0/2' --env TIMEZONE='America/New_York' -v ~/Downloads/:/www php8_nginx:3.17.3
 ```
 
 ## Map container `log`directory locally
 This will run the container and map a local directory, in our case `Downloads`, to the log directory of Nginx, `/var/log/nginx`, inside the container.  
 That gives you the possibility to look at the Nginx log files.
 ```sh
-docker run --rm -d -p 8080:80 -p 8443:443 --name web --env TZ='EAST+5EDT,M3.2.0/2,M11.1.0/2' --env TIMEZONE='America/New_York' -v ~/Downloads/:/var/log/nginx php8_nginx:3.15.3
+docker run --rm -d -p 8080:80 -p 8443:443 --name web --env TZ='EAST+5EDT,M3.2.0/2,M11.1.0/2' --env TIMEZONE='America/New_York' -v ~/Downloads/:/var/log/nginx php8_nginx:3.17.3
 ```
 
 ## Main page
