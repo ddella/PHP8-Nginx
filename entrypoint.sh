@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
 set -e
 
-php-fpm8 -D
+php-fpm81 -D
 nginx -g 'daemon off;'

@@ -4,7 +4,7 @@
 |Name|Version|
 |:---|:---|
 |**Alpine**|3.17.3|
-|**NGINX**|1.21.6|
+|**NGINX**|1.23.4|
 |**PHP8**|8.1.17|
 
 # Introduction
@@ -104,7 +104,7 @@ docker rm -f web
 ```
 
 # Container size
-The size of the container is only ~30MB.
+The size of the container is only ~36   MB.
 
 # Troubleshooting ONLY
 

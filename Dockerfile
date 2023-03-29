@@ -5,7 +5,7 @@
 #   docker run -it --rm --name php81_nginx php81_nginx:3.17.3 /bin/sh
 #
 FROM scratch
-ADD ["alpine-minirootfs-3.17.1-x86_64.tar.gz", "/"]
+ADD ["alpine-minirootfs-3.17.3-x86_64.tar.gz", "/"]
 
 #FROM alpine:3.17.1
 
