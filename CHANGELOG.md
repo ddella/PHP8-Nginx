@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.20](2023-03-29)
+
+- Update Alpine Mini root FileSystem 3.17.3
+- Update Nginx 1.23.4
+- Update PHP 8.1
+- Filename error for Alpine mini rootFS
+
 ## [1.10](2022-03-31)
 
 - Update Alpine Mini root FileSystem 3.15.3
