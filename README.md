@@ -1,4 +1,4 @@
-# Alpine Linux Nginx/PHP 8 for Docker
+# Alpine Linux Nginx/PHP 8.1 for Docker
 # Version
 ## Last Version
 |Name|Version|
