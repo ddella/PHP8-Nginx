@@ -133,7 +133,7 @@ docker run --rm -d -p 8080:80 -p 8443:443 --name web --env TZ='EAST+5EDT,M3.2.0/
 
 This is the main page for the site.
 
-![Alt text for screen readers](images/main_page.png "Main page")
+![Alt text for screen readers](images/main_page.jpg "Main page")
 
 ## Restarting Nginx inside a Docker container
 
