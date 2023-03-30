@@ -43,6 +43,11 @@ git clone https://github.com/ddella/PHP8-Nginx.git
 cd php8-nginx
 ```
 
+If you don't have `git` installed, you can use cURL:
+```sh
+curl -L -o PHP8-Nginx.zip https://github.com/ddella/PHP8-Nginx/archive/refs/heads/main.zip
+```
+
 # Alpine Mini Root FileSystem
 Download Alpine mini root filesystem and place it in the same directory as `Dockerfile`.
 ```sh
