@@ -36,7 +36,7 @@ ADD alpine-minirootfs-3.17.3-x86_64.tar.gz /
 5. Run the container.
 
 # Copy all the files needed to build the image
-This will build a Docker image from scratch. It will be based on Alpine Linux 3.15.0 with Nginx web server and PHP8.
+This will build a Docker image from scratch. It will be based on Alpine Linux 3.17.3 with Nginx web server and PHP 8.1.
 ```sh
 # Copy all the files for GitHub to your local drive.
 git clone https://github.com/ddella/PHP8-Nginx.git
@@ -48,14 +48,14 @@ If you don't have `git` installed, you can use cURL:
 curl -L -o PHP8-Nginx.zip https://github.com/ddella/PHP8-Nginx/archive/refs/heads/main.zip
 ```
 
-Unzip and cd in the directory:
+If you used `cURL`, unzip and cd in the directory:
 ```sh
 unzip PHP8-Nginx.zip
 cd PHP8-Nginx-main
 ```
 
 # Alpine Mini Root FileSystem
-Download Alpine mini root filesystem and place it in the same directory as `Dockerfile`.
+Download Alpine mini root filesystem and place it in the same directory as the `Dockerfile`.
 ```sh
 # Get the Alpine Mini Root FileSystem (~2.7MB).
 curl -O https://dl-cdn.alpinelinux.org/alpine/v3.17/releases/x86_64/alpine-minirootfs-3.17.3-x86_64.tar.gz
