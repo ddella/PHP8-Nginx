@@ -8,7 +8,7 @@
 |**PHP8**|8.1.17|
 
 # Introduction
-This will build a Docker image, from scratch. It is based on Alpine Linux 3.17.3, Nginx 1.20 and PHP 8.1.
+This will build a Docker image, from scratch. It is based on Alpine Linux 3.17.3, Nginx 1.23.4 and PHP 8.1.
 Three files will be copied on the `www` directory of the container.  
 This container can be used to test a `load balancer` fronting a farm of web servers.
 Just point your browser to your load balancer with the following url and the page gives you lots of information about the request.
@@ -111,8 +111,8 @@ This will terminate the container launched in the preceding step:
 docker rm -f web
 ```
 
-# Container size
-The size of the container is only ~36   MB.
+# Size of the Docker image
+The size of the Docker image is only ~36 Mb.
 
 # Troubleshooting ONLY
 
