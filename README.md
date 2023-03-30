@@ -59,7 +59,10 @@ docker build -t php8_nginx:3.17.3 .
 # Running the container locally and sets the local timezone
 The following commands will run your container and sets the timezone to EST.
 ```sh
-docker run --rm -d -p 8080:80 -p 8443:443 --env TZ='EAST+5EDT,M3.2.0/2,M11.1.0/2' --env TIMEZONE='America/New_York' --name web php8_nginx:3.17.3
+docker run --rm -d -p 8080:80 -p 8443:443 \
+--env TZ='EAST+5EDT,M3.2.0/2,M11.1.0/2' \
+--env TIMEZONE='America/New_York' \
+--name web php8_nginx:3.17.3
 ```
 
 Port mapping for `HTTP`  : TCP port `80`, inside the container, will be mapped to port `8080` on the local host.  
@@ -105,7 +108,10 @@ The size of the container is only ~36   MB.
 ## Shell access to the container
 This command gives you a shell access to the container. Not to be used in production.
 ```sh
-docker run -it --rm --entrypoint /bin/sh --env TZ='EAST+5EDT,M3.2.0/2,M11.1.0/2' --env TIMEZONE='America/New_York' --name test php8_nginx:3.17.3
+docker run -it --rm --entrypoint /bin/sh \
+--env TZ='EAST+5EDT,M3.2.0/2,M11.1.0/2' \
+--env TIMEZONE='America/New_York' \
+--name test php8_nginx:3.17.3
 ```
 The container will terminate as soon as you exit the shell.
 
@@ -120,7 +126,11 @@ docker run --rm -d -p 8080:80 -p 8443:443 --name web --env TZ='EAST+5EDT,M3.2.0/
 This will run the container and map a local directory, in our case `Downloads`, to the log directory of Nginx, `/var/log/nginx`, inside the container.  
 That gives you the possibility to look at the Nginx log files.
 ```sh
-docker run --rm -d -p 8080:80 -p 8443:443 --name web --env TZ='EAST+5EDT,M3.2.0/2,M11.1.0/2' --env TIMEZONE='America/New_York' -v ~/Downloads/:/var/log/nginx php8_nginx:3.17.3
+docker run --rm -d -p 8080:80 -p 8443:443 --name web \
+--env TZ='EAST+5EDT,M3.2.0/2,M11.1.0/2' \
+--env TIMEZONE='America/New_York' \
+-v ~/Downloads/:/var/log/nginx \
+php8_nginx:3.17.3
 ```
 
 ## Main page
