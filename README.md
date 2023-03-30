@@ -50,20 +50,11 @@ Download Alpine mini root filesystem and place it in the same directory as `Dock
 curl -O https://dl-cdn.alpinelinux.org/alpine/v3.17/releases/x86_64/alpine-minirootfs-3.17.3-x86_64.tar.gz
 ```
 
-# Build the Docker image from scratch.
+# Build the Docker image from scratch
 This command builds the Docker image. Don't forget the trailing period `(.)` at the end of the command.
 ```sh
 docker build -t php8_nginx:3.17.3 .
 ```
-
-# Running the container locally
-The following commands will run your container.
-```sh
-docker run --rm -d -p 8080:80 -p 8443:443 --name web php8_nginx:3.17.3
-```
-Port mapping for `HTTP`  : TCP port `80`, inside the container, will be mapped to port `8080` on the local host.  
-Port mapping for `HTTPS` : TCP port `443`, inside the container, will be mapped to port `8443` on the local host.  
-The  `8080` and  `8443` can be changed. They're the ports on the local Docker host.
 
 # Running the container locally and sets the local timezone
 The following commands will run your container and sets the timezone to EST.
@@ -71,6 +62,9 @@ The following commands will run your container and sets the timezone to EST.
 docker run --rm -d -p 8080:80 -p 8443:443 --env TZ='EAST+5EDT,M3.2.0/2,M11.1.0/2' --env TIMEZONE='America/New_York' --name web php8_nginx:3.17.3
 ```
 
+Port mapping for `HTTP`  : TCP port `80`, inside the container, will be mapped to port `8080` on the local host.  
+Port mapping for `HTTPS` : TCP port `443`, inside the container, will be mapped to port `8443` on the local host.  
+The  `8080` and  `8443` can be changed. They're the ports on the local Docker host.
 The `TIMEZONE` environment variable is for PHP. See [PHP Timezone](https://www.php.net/manual/en/timezones.php).  
 The `TZ` environment variable is for Linux. See [GNU](https://www.gnu.org/software/libc/manual/html_node/TZ-Variable.html).  
 The `TZ`contains five fields. `[std][offset][dst],[start],[end]`  
@@ -153,7 +147,7 @@ docker restart web
 ## Terminate container
 Just type `exit` in the container's shell to quit and terminate the container.
 
-# [CHANGELOG](./CHANGELOG.md)
+## [CHANGELOG](./CHANGELOG.md)
 
 # License
 This project is licensed under the [MIT license](LICENSE).
