@@ -40,7 +40,7 @@ This will build a Docker image from scratch. It will be based on Alpine Linux 3.
 ```sh
 # Copy all the files for GitHub to your local drive.
 git clone https://github.com/ddella/PHP8-Nginx.git
-cd php8-nginx
+cd PHP8-Nginx
 ```
 
 If you don't have `git` installed, you can use cURL:
