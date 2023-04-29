@@ -4,6 +4,7 @@
 
 - Added a simple test page suited for cURL (http://url/test.php)
 - Added --hostname for container
+- Added `docker-compose.yml`
 
 ## 1.20 (2023-03-29)
 

@@ -20,6 +20,8 @@ http://<load balancer>/phpvariables.php
 2. `phpinfo.php` -> This is the phpinfo() function
 3. `phpvariables.php` -> This is the phpinfo(INFO_VARIABLES) function
 4. `superglobals.php` -> This is a self made file, based on phpinfo() function (not very useful 😀)
+5. `setcookie.php` -> This sets a cookie (not very useful 😀)
+6. `test.php` -> This is a base minimum HTML page suited for cURL
 
 The build is a five step process:
 
@@ -173,13 +175,11 @@ php8_nginx:3.17.3
 ```
 
 ## Main page
-
 This is the main page for the site.
 
 ![Alt text for screen readers](images/main_page.jpg "Main page")
 
 ## Restarting Nginx inside a Docker container
-
 If you need to restart nginx, try to reload the configuration instead of restarting the service.
 This could be useful if you make modification on the `nginx.conf`.
 
@@ -197,6 +197,9 @@ docker restart web
 Just type `exit` in the container's shell to quit and terminate the container.
 
 ## [CHANGELOG](./CHANGELOG.md)
+
+# Docker Compose
+I've included a `docker-compose.yml` for Docker Compose. I ran into an issue for terminating the project. See the instructions [here](docker-compose.md).
 
 # License
 This project is licensed under the [MIT license](LICENSE).

@@ -1,0 +1,27 @@
+# docker-compose.yml
+# Start the container: docker compose -f docker-compose.yml --project-name webserver up -d
+# Stop the container: docker compose rm -f -s webserver
+# Stop the container: docker rm -f web
+version: '3.9'
+services:
+  webserver:
+    image: php8_nginx:3.17.3
+    deploy:
+      replicas: 1
+    expose:
+      - "8080"
+      - "8443"
+    ports:
+      - "8080:80"
+      - "8443:443"
+    volumes:
+      - type: bind
+        source: $PWD
+        target: /www
+        read_only: true
+    restart: unless-stopped
+    environment:
+      - TZ='EAST+5EDT,M3.2.0/2,M11.1.0/2'
+      - TIMEZONE='America/New_York'
+    container_name: web
+    hostname: webserver
