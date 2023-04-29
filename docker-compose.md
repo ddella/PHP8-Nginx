@@ -1,4 +1,4 @@
-# Docker Compose for Werbserver service
+# Docker Compose for Webserver service
 Compose is a tool for defining and running multi-container Docker applications. With Compose, you use a `YAML` file to configure your application’s services. Then, with a single command, you create and start all the services from your configuration.
 
 Using Compose is essentially a three-step process:
@@ -54,8 +54,8 @@ services:
         read_only: true
     restart: unless-stopped
     environment:
-      - TZ='EAST+5EDT,M3.2.0/2,M11.1.0/2'
-      - TIMEZONE='America/New_York'
+      - TZ=EAST+5EDT,M3.2.0/2,M11.1.0/2
+      - TIMEZONE=America/New_York
     container_name: web
     hostname: webserver
 
