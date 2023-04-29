@@ -9,16 +9,16 @@ Using Compose is essentially a three-step process:
 
 >Step 1 was already covered at the beginning of the tutorial
 
-## Docker Compose commands to start the Web Server
+## Docker Compose commands to start/stop the Web Server
 This is the `yaml` file to run the Web Server detached.
 
-1. To start the Web Server environment, just type the following command:
+1. To **start** the Web Server environment, just type the following command:
 
 ```sh
 docker compose -f docker-compose.yml --project-name webserver up -d
 ```
 
-2. To stop the server, just type the following command:
+2. To **stop** the server, just type the following command:
 
 ```sh
 docker compose -f docker-compose.yml --project-name webserver rm -fs
