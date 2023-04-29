@@ -3,8 +3,8 @@
 ## 1.21 (2023-04-29)
 
 - Added a simple test page suited for cURL (http://url/test.php)
-- Added --hostname for container
-- Added `docker-compose.yml`
+- Added `--hostname` for container
+- Added manifest file `docker-compose.yml` for Docker Compose
 
 ## 1.20 (2023-03-29)
 
