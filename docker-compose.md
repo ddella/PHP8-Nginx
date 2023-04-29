@@ -77,6 +77,15 @@ Command to list the images used by the created containers for the project:
 docker compose -f docker-compose.yml --project-name webserver images
 ```
 
+## Test
+To the Web Server, open you favorite browser and type this URL: http://localhost:8080
+
+You can alos use cURL by opening your terminal and type:
+```sh
+while true; do curl http://localhost:8080/test.php; sleep 1; done
+```
+>This runs the command is a loop
+
 ## Logging
 In case you run into problems, you can start logging the compose project with the command:
 ```sh
