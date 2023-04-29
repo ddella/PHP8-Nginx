@@ -15,17 +15,14 @@ This is the `yaml` file to run the FakeAPI Server detached.
 1. To start the FakeAPI environment, just type the following command:
 
 ```sh
-cd www
-docker compose -f ../docker-compose.yml --project-name webserver up -d
+docker compose -f docker-compose.yml --project-name webserver up -d
 ```
->This will start the `web` container. I changed directory to `www` so make sure you points to the `docker-compose.yml` one level up.
 
 2. To stop the server, just type the following command:
 
 ```sh
-docker compose rm -f -s webserver
+docker compose -f docker-compose.yml --project-name webserver rm -fs
 ```
->As of this writing, the command didn't worked. I used `docker rm -f web`
 
 ## YAML file to start the FakeAPI Server
 The `docker-compose.yml` file:
@@ -33,8 +30,7 @@ The `docker-compose.yml` file:
 ```yaml
 # docker-compose.yml
 # Start the container: docker compose -f docker-compose.yml --project-name webserver up -d
-# Stop the container: docker compose rm -f -s webserver
-# Stop the container: docker rm -f web
+# Stop the container:  docker compose -f docker-compose.yml --project-name webserver rm -fs
 version: '3.9'
 services:
   webserver:
@@ -49,7 +45,7 @@ services:
       - "8443:443"
     volumes:
       - type: bind
-        source: $PWD
+        source: $PWD/www
         target: /www
         read_only: true
     restart: unless-stopped
@@ -58,35 +54,33 @@ services:
       - TIMEZONE=America/New_York
     container_name: web
     hostname: webserver
-
 ```
+
 ## Useful commands
 Command to list running compose projects:
 ```sh
-docker compose ls
+docker compose -f docker-compose.yml ls
 ```
 
 Command to display the running processes for the project:
 ```sh
-docker compose top webserver
+docker compose -f docker-compose.yml --project-name webserver top
 ```
 
-Command to list containers for the project:
+Command to list containers for the project (you should have only one 😀):
 ```sh
-docker compose ps webserver
+docker compose -f docker-compose.yml --project-name webserver ps
 ```
 
 Command to list the images used by the created containers for the project:
 ```sh
-docker compose images webserver
+docker compose -f docker-compose.yml --project-name webserver images
 ```
 
 ## Logging
 In case you run into problems, you can start logging the compose project with the command:
 ```sh
-docker compose logs -f webserver
+docker compose -f docker-compose.yml --project-name webserver logs -f
 ```
-
-You get the logs from the FakeAPI and Redis container.
 
 <p align="left">(<a href="README.md">back to the main page</a>)</p>

@@ -1,7 +1,6 @@
 # docker-compose.yml
 # Start the container: docker compose -f docker-compose.yml --project-name webserver up -d
-# Stop the container: docker compose rm -f -s webserver
-# Stop the container: docker rm -f web
+# Stop the container: docker compose -f docker-compose.yml --project-name webserver rm -fs
 version: '3.9'
 services:
   webserver:
@@ -16,7 +15,7 @@ services:
       - "8443:443"
     volumes:
       - type: bind
-        source: $PWD
+        source: $PWD/www
         target: /www
         read_only: true
     restart: unless-stopped
