@@ -3,16 +3,16 @@ Compose is a tool for defining and running multi-container Docker applications. 
 
 Using Compose is essentially a three-step process:
 
-1. Define your app’s environment with a `Dockerfile` so it can be reproduced anywhere. (refer to the main page to build the image)
+1. Define your app’s environment with a `Dockerfile` so it can be reproduced anywhere.
 2. Define the services that make up your app in `docker-compose.yml` so they can be run together in an isolated environment.
-3. Run docker compose up and the Docker compose command starts and runs your entire app.
+3. Run `docker compose up` and Docker Compose starts and runs your entire application.
 
 >Step 1 was already covered at the beginning of the tutorial
 
-## Docker Compose commands to start the FakeAPI Server
-This is the `yaml` file to run the FakeAPI Server detached.
+## Docker Compose commands to start the Web Server
+This is the `yaml` file to run the Web Server detached.
 
-1. To start the FakeAPI environment, just type the following command:
+1. To start the Web Server environment, just type the following command:
 
 ```sh
 docker compose -f docker-compose.yml --project-name webserver up -d
@@ -24,8 +24,8 @@ docker compose -f docker-compose.yml --project-name webserver up -d
 docker compose -f docker-compose.yml --project-name webserver rm -fs
 ```
 
-## YAML file to start the FakeAPI Server
-The `docker-compose.yml` file:
+## YAML file to start the Web Server
+Following is the `docker-compose.yml` file. Refer the the actual file on the Git repo. This is only a copy/paste.
 
 ```yaml
 # docker-compose.yml
