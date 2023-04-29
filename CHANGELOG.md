@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.21 (2023-04-29)
+
+- Added a simple test page suited for cURL (http://url/test.php)
+- Added --hostname for container
+
 ## 1.20 (2023-03-29)
 
 - Update Alpine Mini root FileSystem 3.17.3

@@ -71,6 +71,7 @@ docker build -t php8_nginx:3.17.3 .
 The following commands will run your container and sets the timezone to EST.
 ```sh
 docker run --rm -d -p 8080:80 -p 8443:443 \
+--hostname=webserver \
 --env TZ='EAST+5EDT,M3.2.0/2,M11.1.0/2' \
 --env TIMEZONE='America/New_York' \
 --name web php8_nginx:3.17.3
@@ -100,10 +101,34 @@ http://localhost:8080
 ## HTTPS
 Open your browser and type the following url to access the default page of the container with HTTPS.
 You will get an error from your browser about the `self signed` certificate. This error can be safely ignored.  
-If this really bothers you, you can change the files `nginx-certificate.crt`and `nginx.key`.
+If this really bothers you, you can change the files `nginx-certificate.crt` and `nginx.key`.
 ```url
 https://localhost:8443
 ```
+
+## cURL
+It might be usefull to test the container with cURL and get back a bare minimum web page.
+
+This is how to call this minimal page with cURL:
+```sh
+curl http://localhost:8080/test.php
+```
+
+Same but with `HTTPS`:
+```sh
+curl --insecure https://localhost:8443/test.php
+```
+
+The result, in both cases is:
+
+    Hello, Kubernetes from Pod [webserver] at IP [172.17.0.2]: Sat Apr 29 12:45:58 UTC 2023!
+
+If you need to test load balancer H.A. or Kubernetes Cluster, open a terminal window and run cURL in a loop:
+```sh
+while true; do curl http://localhost:8080/test.php; sleep 0.8; done
+```
+
+>Adjust the sleep parameter to suits your need
 
 # Terminate the container
 This will terminate the container launched in the preceding step:
@@ -128,6 +153,7 @@ This will run the container and map a local directory, in our case `Downloads`, 
 That gives you the possibility to change (test) the `html` or `php` files without rebuilding the image.
 ```sh
 docker run --rm -d -p 8080:80 -p 8443:443 --name web \
+--hostname=webserver \
 --env TZ='EAST+5EDT,M3.2.0/2,M11.1.0/2' \
 --env TIMEZONE='America/New_York' \
 -v ~/Downloads/:/www \
@@ -139,6 +165,7 @@ This will run the container and map a local directory, in our case `Downloads`, 
 That gives you the possibility to look at the Nginx log files.
 ```sh
 docker run --rm -d -p 8080:80 -p 8443:443 --name web \
+--hostname webserver
 --env TZ='EAST+5EDT,M3.2.0/2,M11.1.0/2' \
 --env TIMEZONE='America/New_York' \
 -v ~/Downloads/:/var/log/nginx \

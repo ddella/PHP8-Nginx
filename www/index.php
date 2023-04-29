@@ -107,6 +107,10 @@ echo <<<END
 
       <h2>PHP Setcookie<a href="setcookie.php" target="_blank">
       <img src="images/external-link.svg" class="extlink"/></a></h2>
+
+      <h2>Simple test page suited for cURL (curl http://url/test.php)<a href="test.php" target="_blank">
+      <img src="images/external-link.svg" class="extlink"/></a></h2>
+
 <table>
 <tr class=h><th>Description</th><th>Value</th></tr>
 END;
