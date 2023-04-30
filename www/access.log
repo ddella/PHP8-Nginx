@@ -1,0 +1,2 @@
+172.20.0.1 - - [29/Apr/2023:21:28:05 -0400] "GET / HTTP/1.1" 200 4547 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:109.0) Gecko/20100101 Firefox/112.0"
+172.20.0.1 - - [29/Apr/2023:21:28:06 -0400] "GET / HTTP/1.1" 200 4547 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:109.0) Gecko/20100101 Firefox/112.0"

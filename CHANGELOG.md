@@ -24,3 +24,5 @@
 ## 1.00 (2022-01-29)
 
 - Initial release
+
+<p align="left">(<a href="README.md">back to the main page</a>)</p>

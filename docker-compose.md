@@ -30,7 +30,7 @@ Following is the `docker-compose.yml` file. Refer the the actual file on the Git
 ```yaml
 # docker-compose.yml
 # Start the container: docker compose -f docker-compose.yml --project-name webserver up -d
-# Stop the container:  docker compose -f docker-compose.yml --project-name webserver rm -fs
+# Stop the container: docker compose -f docker-compose.yml --project-name webserver rm -fs
 version: '3.9'
 services:
   webserver:
@@ -48,6 +48,9 @@ services:
         source: $PWD/www
         target: /www
         read_only: true
+      - type: bind
+        source: $PWD/www
+        target: /var/log/nginx
     restart: unless-stopped
     environment:
       - TZ=EAST+5EDT,M3.2.0/2,M11.1.0/2
@@ -90,6 +93,11 @@ while true; do curl http://localhost:8080/test.php; sleep 1; done
 In case you run into problems, you can start logging the compose project with the command:
 ```sh
 docker compose -f docker-compose.yml --project-name webserver logs -f
+```
+
+Open a terminal and look at the file `access.log` or `error.log`:
+```sh
+tail -f www/access.log
 ```
 
 <p align="left">(<a href="README.md">back to the main page</a>)</p>

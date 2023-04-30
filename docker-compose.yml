@@ -18,6 +18,9 @@ services:
         source: $PWD/www
         target: /www
         read_only: true
+      - type: bind
+        source: $PWD/www
+        target: /var/log/nginx
     restart: unless-stopped
     environment:
       - TZ=EAST+5EDT,M3.2.0/2,M11.1.0/2

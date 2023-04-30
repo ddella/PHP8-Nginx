@@ -144,11 +144,16 @@ The size of the Docker image is only ~36 Mb.
 # Troubleshooting ONLY
 
 ## Shell access to the container
-This command gives you a shell access to the container. Not to be used in production.
+This command **starts** the container and gives you a shell access. Not to be used in production.
 ```sh
 docker run -it --rm --entrypoint /bin/sh php8_nginx:3.17.3
 ```
 >The container will terminate as soon as you exit the shell.
+
+If the container is already running, type this command:
+```sh
+docker exec -it web /bin/sh
+```
 
 ## Map container `www`directory locally
 This will run the container and map a local directory, in our case `Downloads`, to the root directory of Nginx, `www`, inside the container.  
@@ -163,15 +168,22 @@ php8_nginx:3.17.3
 ```
 
 ## Map container `log`directory locally
-This will run the container and map a local directory, in our case `Downloads`, to the log directory of Nginx, `/var/log/nginx`, inside the container.  
-That gives you the possibility to look at the Nginx log files.
+This will run the container and map a local directory, in our case `Downloads`, to the log directory of Nginx, `/var/log/nginx`, inside the container.
+
+That gives you the possibility to look at the Nginx access log and/or error log files.
 ```sh
 docker run --rm -d -p 8080:80 -p 8443:443 --name web \
 --hostname webserver
 --env TZ='EAST+5EDT,M3.2.0/2,M11.1.0/2' \
 --env TIMEZONE='America/New_York' \
+-v ~/Downloads/:/www \
 -v ~/Downloads/:/var/log/nginx \
 php8_nginx:3.17.3
+```
+
+Open a terminal and look at the file `access.log` or `error.log`:
+```sh
+tail -f ~/Downloads/access.log
 ```
 
 ## Main page
@@ -183,13 +195,13 @@ This is the main page for the site.
 If you need to restart nginx, try to reload the configuration instead of restarting the service.
 This could be useful if you make modification on the `nginx.conf`.
 
-```command
+```sh
 docker exec web nginx -s reload
 ```
 
 If you must restart the nginx process, restart the container using the command:
 
-```command
+```sh
 docker restart web
 ```
 
