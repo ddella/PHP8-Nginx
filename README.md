@@ -173,7 +173,7 @@ This will run the container and map a local directory, in our case `Downloads`, 
 That gives you the possibility to look at the Nginx access log and/or error log files.
 ```sh
 docker run --rm -d -p 8080:80 -p 8443:443 --name web \
---hostname webserver
+--hostname=webserver \
 --env TZ='EAST+5EDT,M3.2.0/2,M11.1.0/2' \
 --env TIMEZONE='America/New_York' \
 -v ~/Downloads/:/www \
