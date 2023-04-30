@@ -156,19 +156,19 @@ docker exec -it web /bin/sh
 ```
 
 ## Map container `www`directory locally
-This will run the container and map a local directory, in our case `Downloads`, to the root directory of Nginx, `www`, inside the container.  
+This will run the container and map a local directory, in our case `$PWD`, to the root directory of Nginx, `www`, inside the container.  
 That gives you the possibility to change (test) the `html` or `php` files without rebuilding the image.
 ```sh
 docker run --rm -d -p 8080:80 -p 8443:443 --name web \
 --hostname=webserver \
 --env TZ='EAST+5EDT,M3.2.0/2,M11.1.0/2' \
 --env TIMEZONE='America/New_York' \
--v ~/Downloads/:/www \
+--mount type=bind,source="$(pwd)"/www,target=/www,readonly \
 php8_nginx:3.17.3
 ```
 
-## Map container `log`directory locally
-This will run the container and map a local directory, in our case `Downloads`, to the log directory of Nginx, `/var/log/nginx`, inside the container.
+## Map container `log` directory locally
+This will run the container and map a local directory, in our case `$PWD`, to the log directory of Nginx, `/var/log/nginx`, inside the container.
 
 That gives you the possibility to look at the Nginx access log and/or error log files.
 ```sh
@@ -176,14 +176,14 @@ docker run --rm -d -p 8080:80 -p 8443:443 --name web \
 --hostname=webserver \
 --env TZ='EAST+5EDT,M3.2.0/2,M11.1.0/2' \
 --env TIMEZONE='America/New_York' \
--v ~/Downloads/:/www \
--v ~/Downloads/:/var/log/nginx \
+--mount type=bind,source="$(pwd)"/www,target=/www,readonly \
+--mount type=bind,source="$(pwd)"/www,target=/var/log/nginx \
 php8_nginx:3.17.3
 ```
 
 Open a terminal and look at the file `access.log` or `error.log`:
 ```sh
-tail -f ~/Downloads/access.log
+tail -f www/access.log
 ```
 
 ## Main page
