@@ -70,13 +70,15 @@ docker build -t php8_nginx:3.17.3 .
 ```
 
 # Running the container locally and sets the local timezone
-The following commands will run your container and sets the timezone to EST.
+This will run the container and map a local directory, in our case `$PWD`, to the root directory of Nginx, `www`, inside the container.  
+That gives you the possibility to change (test) the `html` or `php` files without rebuilding the image.
 ```sh
-docker run --rm -d -p 8080:80 -p 8443:443 \
+docker run --rm -d -p 8080:80 -p 8443:443 --name web \
 --hostname=webserver \
 --env TZ='EAST+5EDT,M3.2.0/2,M11.1.0/2' \
 --env TIMEZONE='America/New_York' \
---name web php8_nginx:3.17.3
+--mount type=bind,source="$(pwd)"/www,target=/www,readonly \
+php8_nginx:3.17.3
 ```
 
 Port mapping for `HTTP`  : TCP port `80`, inside the container, will be mapped to port `8080` on the local host.  
@@ -153,18 +155,6 @@ docker run -it --rm --entrypoint /bin/sh php8_nginx:3.17.3
 If the container is already running, type this command:
 ```sh
 docker exec -it web /bin/sh
-```
-
-## Map container `www`directory locally
-This will run the container and map a local directory, in our case `$PWD`, to the root directory of Nginx, `www`, inside the container.  
-That gives you the possibility to change (test) the `html` or `php` files without rebuilding the image.
-```sh
-docker run --rm -d -p 8080:80 -p 8443:443 --name web \
---hostname=webserver \
---env TZ='EAST+5EDT,M3.2.0/2,M11.1.0/2' \
---env TIMEZONE='America/New_York' \
---mount type=bind,source="$(pwd)"/www,target=/www,readonly \
-php8_nginx:3.17.3
 ```
 
 ## Map container `log` directory locally
