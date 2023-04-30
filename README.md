@@ -158,7 +158,7 @@ docker exec -it web /bin/sh
 ```
 
 ## Map container `log` directory locally
-This will run the container and map a local directory, in our case `$PWD`, to the log directory of Nginx, `/var/log/nginx`, inside the container.
+This will run the container and map a local directory, in our case `$PWD/www`, to the log directory of Nginx, `/var/log/nginx`, inside the container.
 
 That gives you the possibility to look at the Nginx access log and/or error log files.
 ```sh
