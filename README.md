@@ -69,6 +69,20 @@ This command builds the Docker image. Don't forget the trailing period `(.)` at 
 docker build -t php8_nginx:3.17.3 .
 ```
 
+Check the image, with a filter:
+```sh
+docker images php8_nginx:3.17.3
+```
+
+Check the image without any filter:
+```sh
+docker image ls
+```
+
+>**Note:** If you don't want to filter use the command: `docker image ls` (no 'S' in image)
+
+The size of the Docker image is only ~36 Mb.
+
 # Running the container locally and sets the local timezone
 This will run the container and map a local directory, in our case `$PWD`, to the root directory of Nginx, `www`, inside the container.  
 That gives you the possibility to change (test) the `html` or `php` files without rebuilding the image.
@@ -124,12 +138,13 @@ curl --insecure https://localhost:8443/test.php
 ```
 
 The result, in both cases is:
+```
+Hello, Kubernetes from Pod [webserver] at IP [172.17.0.2]: Sat Apr 29 12:45:58 UTC 2023!
+```
 
-    Hello, Kubernetes from Pod [webserver] at IP [172.17.0.2]: Sat Apr 29 12:45:58 UTC 2023!
-
-If you need to test load balancer H.A. or Kubernetes Cluster, open a terminal window and run cURL in a loop:
+If you need to test load balancer H.A. or Kubernetes Cluster, open a terminal window and run `cURL` in a loop:
 ```sh
-while true; do curl http://localhost:8080/test.php; sleep 0.8; done
+while true; do curl http://localhost:8080/test.php; sleep 1.0; done
 ```
 
 >Adjust the sleep parameter to suits your need
@@ -139,9 +154,6 @@ This will terminate the container launched in the preceding step:
 ```sh   
 docker rm -f web
 ```
-
-# Size of the Docker image
-The size of the Docker image is only ~36 Mb.
 
 # Troubleshooting ONLY
 
