@@ -158,16 +158,18 @@ docker rm -f web
 # Troubleshooting ONLY
 
 ## Shell access to the container
-This command **starts** the container and gives you a shell access. Not to be used in production.
+This command **starts a NEW** container and gives you a shell access to it. Do not use this command to start a container in production. The container will terminate as soon as you exit the shell.
 ```sh
 docker run -it --rm --entrypoint /bin/sh php8_nginx:3.17.3
 ```
->The container will terminate as soon as you exit the shell.
+>`php8_nginx:3.17.3` is the image used to start the container.
 
-If the container is already running, type this command:
+If the container is already running and you want to jump insside, use this command:
 ```sh
 docker exec -it web /bin/sh
 ```
+
+>`web` is the name of the running container to jump inside.
 
 ## Map container `log` directory locally
 This will run the container and map a local directory, in our case `$PWD/www`, to the log directory of Nginx, `/var/log/nginx`, inside the container.
