@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.00 (2023-07-05)
+
+- Update Alpine Mini root FileSystem 3.18.2
+- Update Nginx 1.25
+- Update PHP 8.2
+- Added `socat` TCP and UDP listener
+- Added manifest file Kubernetes Cluster `daemonSet.yaml`
+
 ## 1.21 (2023-04-29)
 
 - Added a simple test page suited for cURL (http://url/test.php)

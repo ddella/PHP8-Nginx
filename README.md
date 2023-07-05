@@ -1,14 +1,14 @@
-# Alpine Linux Nginx/PHP 8.1 for Docker
+# Alpine Linux with Nginx/PHP for Docker
 # Version
 ## Last Version
 |Name|Version|
 |:---|:---|
 |**Alpine**|3.18.2|
 |**NGINX**|1.25|
-|**PHP8**|8.1|
+|**PHP8**|8.2|
 
 # Introduction
-This will build a Docker image, from scratch. It is based on Alpine Linux 3.18.2, Nginx 1.25 and PHP 8.1.
+This will build a Docker image, from scratch. It is based on Alpine Linux 3.18.2, Nginx 1.25 and PHP 8.2.
 Three files will be copied on the `www` directory of the container.  
 This container can be used to test a `load balancer` fronting a farm of web servers.
 Just point your browser to your load balancer with the following url and the page gives you lots of information about the request.
@@ -34,11 +34,11 @@ ADD alpine-minirootfs-3.18.2-x86_64.tar.gz /
 ...
 ```
 3. Build the Docker container.
-4. Install Nginx, PHP 8.1 and execute some scripts to finalize the installation.
+4. Install Nginx, PHP 8.2 and execute some scripts to finalize the installation.
 5. Run the container.
 
 # Copy all the files needed to build the image
-This will build a Docker image from scratch. It will be based on Alpine Linux 3.18.2 with Nginx web server and PHP 8.1.
+This will build a Docker image from scratch. It will be based on Alpine Linux 3.18.2 with Nginx web server and PHP 8.2.
 ```sh
 # Copy all the files for GitHub to your local drive.
 git clone https://github.com/ddella/PHP8-Nginx.git
@@ -66,12 +66,12 @@ curl -O https://dl-cdn.alpinelinux.org/alpine/v3.18/releases/x86_64/alpine-minir
 # Build the Docker image from scratch
 This command builds the Docker image. Don't forget the trailing period `(.)` at the end of the command.
 ```sh
-docker build -t php8_nginx:3.18.2 .
+docker build -t php82_nginx125:3.18.2 .
 ```
 
 Check the image, with a filter:
 ```sh
-docker images php8_nginx:3.18.2
+docker images php82_nginx125:3.18.2
 ```
 
 Check the image without any filter:
@@ -81,7 +81,7 @@ docker image ls
 
 >**Note:** If you don't want to filter use the command: `docker image ls` (no 'S' in image)
 
-The size of the Docker image is only ~36 Mb.
+The size of the Docker image is ~136 Mb. If you want a smaller image, don't install `tshark`. It should reduce it to ~36 Mb.
 
 # Running the container locally and sets the local timezone
 This will run the container and map a local directory, in our case `$PWD`, to the root directory of Nginx, `www`, inside the container.  
@@ -94,7 +94,7 @@ docker run --rm -d -p 8080:80 -p 8443:443 --name web \
 --env TCP_PORT=1234 \
 --env UDP_PORT=5678 \
 --mount type=bind,source="$(pwd)"/www,target=/www,readonly \
-php8_nginx:3.18.2
+php82_nginx125:3.18.2
 ```
 
 Port mapping for `HTTP`  : TCP port `80`, inside the container, will be mapped to port `8080` on the local host.  
@@ -173,9 +173,9 @@ docker rm -f web
 ## Shell access to the container
 This command **starts a NEW** container and gives you a shell access to it. Do not use this command to start a container in production. The container will terminate as soon as you exit the shell.
 ```sh
-docker run -it --rm --entrypoint /bin/sh php8_nginx:3.18.2
+docker run -it --rm --entrypoint /bin/sh php82_nginx125:3.18.2
 ```
->`php8_nginx:3.18.2` is the image used to start the container.
+>`php82_nginx125:3.18.2` is the image used to start the container.
 
 If the container is already running and you want to jump insside, use this command:
 ```sh
@@ -197,7 +197,7 @@ docker run --rm -d -p 8080:80 -p 8443:443 --name web \
 --env UDP_PORT=5678 \
 --mount type=bind,source="$(pwd)"/www,target=/www,readonly \
 --mount type=bind,source="$(pwd)"/www,target=/var/log/nginx \
-php8_nginx:3.18.2
+php82_nginx125:3.18.2
 ```
 
 Open a terminal and look at the file `access.log` or `error.log`:
@@ -227,8 +227,6 @@ docker restart web
 ## Terminate container
 Just type `exit` in the container's shell to quit and terminate the container.
 
-# [CHANGELOG](./CHANGELOG.md)
-
 # Docker Compose
 I've included a `docker-compose.yml` for Docker Compose. I ran into an issue for terminating the project. See the instructions [here](docker-compose.md).
 
@@ -238,7 +236,7 @@ I had a special case where I needed that container to run as a Pod on every work
 ## Create the K8s manifest
 Create the `yaml` file with the command below:
 ```sh
-cat > echo-server.yaml<<EOF
+cat > daemonSet.yaml<<EOF
 apiVersion: v1
 kind: Namespace
 metadata:
@@ -263,7 +261,7 @@ spec:
     spec:
       containers:
       - name: echo-server
-        image: php8_nginx:3.18.2
+        image: php82_nginx125:3.18.2
         env:
         - name: TCP_PORT
           value: "1234"
@@ -288,7 +286,7 @@ EOF
 ## Create Daemon Set
 Create the Pods with the command:
 ```sh
-kubectl create -f echo-server.yaml
+kubectl create -f daemonSet.yaml
 ```
 
 Check that there's one Pod per worker node with the command:
@@ -299,8 +297,10 @@ kubectl get pods -n echo-server -o wide
 ## Delete Daemon Set
 This will delete the Pods and the namespace:
 ```sh
-kubectl delete -f echo-server.yaml
+kubectl delete -f daemonSet.yaml
 ```
 
 # License
 This project is licensed under the [MIT license](LICENSE).
+
+# [CHANGELOG](./CHANGELOG.md)
