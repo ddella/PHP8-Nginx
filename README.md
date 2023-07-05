@@ -154,11 +154,13 @@ while true; do curl http://localhost:8080/test.php; sleep 1.0; done
 >Adjust the sleep parameter to suits your need
 
 ## NC
-You can use `nc` to test for either a `TCP` or `UDP` listener that was started before Nginx:
+You can use `nc` to test for either a `TCP` or `UDP` listener that was started before Nginx daemon:
 ```sh
 nc 127.0.0.1 1234
 nc 127.0.0.1 -u 5678
 ```
+
+The listeners is using `socat`.  
 
 # Terminate the container
 This will terminate the container launched in the preceding step:
