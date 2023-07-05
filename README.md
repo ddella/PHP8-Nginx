@@ -303,4 +303,4 @@ kubectl delete -f daemonSet.yaml
 # License
 This project is licensed under the [MIT license](LICENSE).
 
-# [CHANGELOG](./CHANGELOG.md)
+### [CHANGELOG](./CHANGELOG.md)
