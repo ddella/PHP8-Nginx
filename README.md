@@ -4,8 +4,8 @@
 |Name|Version|
 |:---|:---|
 |**Alpine**|3.18.2|
-|**NGINX**|1.23.4|
-|**PHP8**|8.1.17|
+|**NGINX**|1.25|
+|**PHP8**|8.1|
 
 # Introduction
 This will build a Docker image, from scratch. It is based on Alpine Linux 3.18.2, Nginx 1.23.4 and PHP 8.1.
@@ -191,6 +191,8 @@ docker run --rm -d -p 8080:80 -p 8443:443 --name web \
 --hostname=webserver \
 --env TZ='EAST+5EDT,M3.2.0/2,M11.1.0/2' \
 --env TIMEZONE='America/New_York' \
+--env TCP_PORT=1234 \
+--env UDP_PORT=5678 \
 --mount type=bind,source="$(pwd)"/www,target=/www,readonly \
 --mount type=bind,source="$(pwd)"/www,target=/var/log/nginx \
 php8_nginx:3.18.2
