@@ -6,14 +6,14 @@
 #
 # You can uncomment the following line and comment the following two (2)
 # and you won't have to download the mini root filesystem
-FROM alpine:3.18.2
+# FROM alpine:3.18.2
 
-# FROM scratch
-# ADD ["alpine-minirootfs-3.18.2-x86_64.tar.gz", "/"]
+FROM scratch
+ADD ["alpine-minirootfs-3.18.2-x86_64.tar.gz", "/"]
 
 LABEL org.opencontainers.image.authors="DDN <daniel@isociel.com>"
 LABEL version="1.20"
-LABEL Description="Lightweight container with Nginx and PHP 8.1 on Alpine 3.18.2"
+LABEL Description="Lightweight container with Nginx 1.25 and PHP 8.1 on Alpine 3.18.2"
 
 # Nginx Installation
 COPY nginx.sh /tmp

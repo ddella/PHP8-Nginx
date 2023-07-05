@@ -8,7 +8,7 @@
 |**PHP8**|8.1|
 
 # Introduction
-This will build a Docker image, from scratch. It is based on Alpine Linux 3.18.2, Nginx 1.23.4 and PHP 8.1.
+This will build a Docker image, from scratch. It is based on Alpine Linux 3.18.2, Nginx 1.25 and PHP 8.1.
 Three files will be copied on the `www` directory of the container.  
 This container can be used to test a `load balancer` fronting a farm of web servers.
 Just point your browser to your load balancer with the following url and the page gives you lots of information about the request.
@@ -59,8 +59,8 @@ cd PHP8-Nginx-main
 # Alpine Mini Root FileSystem
 Download Alpine mini root filesystem and place it in the same directory as the `Dockerfile`.
 ```sh
-# Get the Alpine Mini Root FileSystem (~2.7MB).
-curl -O https://dl-cdn.alpinelinux.org/alpine/v3.17/releases/x86_64/alpine-minirootfs-3.18.2-x86_64.tar.gz
+# Get the Alpine Mini Root FileSystem (~3.3MB).
+curl -O https://dl-cdn.alpinelinux.org/alpine/v3.18/releases/x86_64/alpine-minirootfs-3.18.2-x86_64.tar.gz
 ```
 
 # Build the Docker image from scratch
@@ -225,7 +225,7 @@ docker restart web
 ## Terminate container
 Just type `exit` in the container's shell to quit and terminate the container.
 
-## [CHANGELOG](./CHANGELOG.md)
+# [CHANGELOG](./CHANGELOG.md)
 
 # Docker Compose
 I've included a `docker-compose.yml` for Docker Compose. I ran into an issue for terminating the project. See the instructions [here](docker-compose.md).
@@ -273,10 +273,11 @@ spec:
           value: "America/New_York"
         resources:
           limits:
-            memory: 100Mi
+            cpu: "500m"
+            memory: "64Mi"
           requests:
-            cpu: 100m
-            memory: 100Mi
+            cpu: "250m"
+            memory: "32Mi"
 EOF
 ```
 
@@ -288,13 +289,13 @@ Create the Pods with the command:
 kubectl create -f echo-server.yaml
 ```
 
-Check that there's one Pod per worker node:
+Check that there's one Pod per worker node with the command:
 ```sh
 kubectl get pods -n echo-server -o wide
 ```
 
 ## Delete Daemon Set
-Create the Pods with the command:
+This will delete the Pods and the namespace:
 ```sh
 kubectl delete -f echo-server.yaml
 ```
