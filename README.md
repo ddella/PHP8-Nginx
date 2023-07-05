@@ -281,7 +281,7 @@ spec:
 EOF
 ```
 
->**Note:** The image must reside on your Kubernetes Cluster local registry for **EACH** worker node. See my light 😉 tutorial on tranfering a local Docker image to the local K8s registry, [here](https://github.com/ddella/Kubernetes-Cluster/blob/main/K8s-Local-Image.md).
+>**Note**: The image must reside on your Kubernetes Cluster local registry for **EACH** worker node. See my light 😉 tutorial on tranfering a local Docker image to the local K8s registry, [here](https://github.com/ddella/Kubernetes-Cluster/blob/main/K8s-Local-Image.md).
 
 ## Create Daemon Set
 Create the Pods with the command:
