@@ -264,7 +264,7 @@ spec:
         - name: TCP_PORT
           value: "1234"
         - name: UDP_PORT
-          value: "1234"
+          value: "5678"
         - name: TZ
           value: "EAST+5EDT,M3.2.0/2,M11.1.0/2"
         - name: TIMEZONE
