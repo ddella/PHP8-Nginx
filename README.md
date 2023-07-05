@@ -3,12 +3,12 @@
 ## Last Version
 |Name|Version|
 |:---|:---|
-|**Alpine**|3.17.3|
+|**Alpine**|3.18.2|
 |**NGINX**|1.23.4|
 |**PHP8**|8.1.17|
 
 # Introduction
-This will build a Docker image, from scratch. It is based on Alpine Linux 3.17.3, Nginx 1.23.4 and PHP 8.1.
+This will build a Docker image, from scratch. It is based on Alpine Linux 3.18.2, Nginx 1.23.4 and PHP 8.1.
 Three files will be copied on the `www` directory of the container.  
 This container can be used to test a `load balancer` fronting a farm of web servers.
 Just point your browser to your load balancer with the following url and the page gives you lots of information about the request.
@@ -30,7 +30,7 @@ The build is a five step process:
 ```Dockerfile
 # Set master image
 FROM scratch
-ADD alpine-minirootfs-3.17.3-x86_64.tar.gz /
+ADD alpine-minirootfs-3.18.2-x86_64.tar.gz /
 ...
 ```
 3. Build the Docker container.
@@ -38,7 +38,7 @@ ADD alpine-minirootfs-3.17.3-x86_64.tar.gz /
 5. Run the container.
 
 # Copy all the files needed to build the image
-This will build a Docker image from scratch. It will be based on Alpine Linux 3.17.3 with Nginx web server and PHP 8.1.
+This will build a Docker image from scratch. It will be based on Alpine Linux 3.18.2 with Nginx web server and PHP 8.1.
 ```sh
 # Copy all the files for GitHub to your local drive.
 git clone https://github.com/ddella/PHP8-Nginx.git
@@ -60,18 +60,18 @@ cd PHP8-Nginx-main
 Download Alpine mini root filesystem and place it in the same directory as the `Dockerfile`.
 ```sh
 # Get the Alpine Mini Root FileSystem (~2.7MB).
-curl -O https://dl-cdn.alpinelinux.org/alpine/v3.17/releases/x86_64/alpine-minirootfs-3.17.3-x86_64.tar.gz
+curl -O https://dl-cdn.alpinelinux.org/alpine/v3.17/releases/x86_64/alpine-minirootfs-3.18.2-x86_64.tar.gz
 ```
 
 # Build the Docker image from scratch
 This command builds the Docker image. Don't forget the trailing period `(.)` at the end of the command.
 ```sh
-docker build -t php8_nginx:3.17.3 .
+docker build -t php8_nginx:3.18.2 .
 ```
 
 Check the image, with a filter:
 ```sh
-docker images php8_nginx:3.17.3
+docker images php8_nginx:3.18.2
 ```
 
 Check the image without any filter:
@@ -91,8 +91,10 @@ docker run --rm -d -p 8080:80 -p 8443:443 --name web \
 --hostname=webserver \
 --env TZ='EAST+5EDT,M3.2.0/2,M11.1.0/2' \
 --env TIMEZONE='America/New_York' \
+--env TCP_PORT=1234 \
+--env UDP_PORT=5678 \
 --mount type=bind,source="$(pwd)"/www,target=/www,readonly \
-php8_nginx:3.17.3
+php8_nginx:3.18.2
 ```
 
 Port mapping for `HTTP`  : TCP port `80`, inside the container, will be mapped to port `8080` on the local host.  
@@ -101,6 +103,8 @@ The  `8080` and  `8443` can be changed. They're the ports on the local Docker ho
 The `TIMEZONE` environment variable is for PHP. See [PHP Timezone](https://www.php.net/manual/en/timezones.php).  
 The `TZ` environment variable is for Linux. See [GNU](https://www.gnu.org/software/libc/manual/html_node/TZ-Variable.html).  
 The `TZ`contains five fields. `[std][offset][dst],[start],[end]`  
+The `TCP_PORT` environment variable is for `socat` TCP listener  
+The `UDP_PORT` environment variable is for `socat` UDP listener  
 . `[std]`: String of standard timezone  
 . `[dst]`: String of daylight timezone  
 . `[start]`: Start of Daylight time, see Mm.w.d  
@@ -149,6 +153,13 @@ while true; do curl http://localhost:8080/test.php; sleep 1.0; done
 
 >Adjust the sleep parameter to suits your need
 
+## NC
+You can use `nc` to test for either a `TCP` or `UDP` listener that was started before Nginx:
+```sh
+nc 127.0.0.1 1234
+nc 127.0.0.1 -u 5678
+```
+
 # Terminate the container
 This will terminate the container launched in the preceding step:
 ```sh   
@@ -160,9 +171,9 @@ docker rm -f web
 ## Shell access to the container
 This command **starts a NEW** container and gives you a shell access to it. Do not use this command to start a container in production. The container will terminate as soon as you exit the shell.
 ```sh
-docker run -it --rm --entrypoint /bin/sh php8_nginx:3.17.3
+docker run -it --rm --entrypoint /bin/sh php8_nginx:3.18.2
 ```
->`php8_nginx:3.17.3` is the image used to start the container.
+>`php8_nginx:3.18.2` is the image used to start the container.
 
 If the container is already running and you want to jump insside, use this command:
 ```sh
@@ -182,7 +193,7 @@ docker run --rm -d -p 8080:80 -p 8443:443 --name web \
 --env TIMEZONE='America/New_York' \
 --mount type=bind,source="$(pwd)"/www,target=/www,readonly \
 --mount type=bind,source="$(pwd)"/www,target=/var/log/nginx \
-php8_nginx:3.17.3
+php8_nginx:3.18.2
 ```
 
 Open a terminal and look at the file `access.log` or `error.log`:
@@ -216,6 +227,75 @@ Just type `exit` in the container's shell to quit and terminate the container.
 
 # Docker Compose
 I've included a `docker-compose.yml` for Docker Compose. I ran into an issue for terminating the project. See the instructions [here](docker-compose.md).
+
+# Kubernetes
+I had a special case where I needed that container to run as a Pod on every worker node in Kubernetes Cluster. I created a `daemonset` so each worker node would have a Pod running in it's own namespace:
+
+## Create the K8s manifest
+Create the `yaml` file with the command below:
+```sh
+cat > echo-server.yaml<<EOF
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: echo-server
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: echo-server
+  namespace: echo-server
+  labels:
+    app: echo-server
+    k8s-app: echo-server
+spec:
+  selector:
+    matchLabels:
+      name: echo-server
+  template:
+    metadata:
+      labels:
+        name: echo-server
+    spec:
+      containers:
+      - name: echo-server
+        image: php8_nginx:3.18.2
+        env:
+        - name: TCP_PORT
+          value: "1234"
+        - name: UDP_PORT
+          value: "1234"
+        - name: TZ
+          value: "EAST+5EDT,M3.2.0/2,M11.1.0/2"
+        - name: TIMEZONE
+          value: "America/New_York"
+        resources:
+          limits:
+            memory: 100Mi
+          requests:
+            cpu: 100m
+            memory: 100Mi
+EOF
+```
+
+>**Note:** The image must reside on your Kubernetes Cluster for **EACH** worker node. See my light tutorial on creating a Docker image and tranfering that image to the local K8s registry [here](https://github.com/ddella/Kubernetes-Cluster/blob/main/K8s-Local-Image.md).
+
+## Create Daemon Set
+Create the Pods with the command:
+```sh
+kubectl create -f echo-server.yaml
+```
+
+Check that there's one Pod per worker node:
+```sh
+kubectl get pods -n echo-server -o wide
+```
+
+## Delete Daemon Set
+Create the Pods with the command:
+```sh
+kubectl delete -f echo-server.yaml
+```
 
 # License
 This project is licensed under the [MIT license](LICENSE).
