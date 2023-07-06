@@ -91,7 +91,7 @@ docker image ls
 
 >**Note:** If you don't want to filter use the command: `docker image ls` (no 'S' in image)
 
-The size of the Docker image is ~136 Mb. If you want a smaller image, don't install `tshark`. It should reduce it to ~36 Mb.
+The size of the Docker image is ~38 Mb. If you install `tshark`, the size will explode to ~138 Mb 😉
 
 # Running the container locally and sets the local timezone
 This will run the container and map a local directory, in our case `$PWD`, to the root directory of Nginx, `www`, inside the container.  

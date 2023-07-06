@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 set -e
 
-php-fpm81 -D
+php-fpm82 -D
 
 # TCP and UDP listener
 socat TCP-LISTEN:${TCP_PORT},reuseaddr,fork SYSTEM:"echo \$\(date\); echo TCP Server\: \$SOCAT_SOCKADDR\:\$SOCAT_SOCKPORT; echo Client\: \$SOCAT_PEERADDR\:\$SOCAT_PEERPORT; echo; cat",nofork &

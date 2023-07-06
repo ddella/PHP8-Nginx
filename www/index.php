@@ -115,6 +115,31 @@ echo <<<END
 <tr class=h><th>Description</th><th>Value</th></tr>
 END;
 
+$port = getenv('TCP_PORT');
+// Check if $port is either 0, empty, or not set at all
+if (empty($port)) {
+    echo '<h3>Env. variable "TCP_PORT" is either 0, empty, or not set at all</h3>';
+} else {
+  $count = shell_exec("ps -o comm,args | grep 'TCP-LISTEN:$port' | grep -v -c 'grep'");
+  if($count == 1) {
+    echo "<h3>TCP echo listener on port TCP/$port</h3>";
+  } else {
+    echo "<h3>ERROR with TCP echo listener. Is the port TCP/$port valid?</h3>";
+  }
+}                      
+$port = getenv('UDP_PORT');
+// Check if $port is either 0, empty, or not set at all
+if (empty($port)) {
+    echo '<h3>Env. variable "UDP_PORT" is either 0, empty, or not set at all</h3>';
+} else {
+  $count = shell_exec("ps -o comm,args | grep 'UDP-LISTEN:$port' | grep -v -c 'grep'");
+  if($count == 1) {
+    echo "<h3>UDP echo listener on port UDP/$port</h3>";
+  } else {
+    echo "<h3>ERROR with UDP echo listener. Is the port UDP/$port valid?</h3>";
+  }
+}
+
 // Browser section
 echo "<tr><td class=\"e\">Client request</td><td class=\"v\">" . $_SERVER['HTTP_REFERER'] . "</td></tr>\r\n";
 echo "<tr><td class=\"e\">Client request URI</td><td class=\"v\">" . $_SERVER['REQUEST_URI'] . "</td></tr>\r\n";
