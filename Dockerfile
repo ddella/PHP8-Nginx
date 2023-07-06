@@ -3,9 +3,9 @@
 # You can uncomment the following line and comment the following two (2) lines
 # and you won't have to download the mini root filesystem
 
-# FROM alpine:3.18.2
-FROM scratch
-ADD ["alpine-minirootfs-3.18.2-x86_64.tar.gz", "/"]
+FROM alpine:3.18.2
+# FROM scratch
+# ADD ["alpine-minirootfs-3.18.2-x86_64.tar.gz", "/"]
 
 LABEL org.opencontainers.image.authors="DDN <daniel@isociel.com>"
 LABEL version="2.00"
@@ -20,11 +20,11 @@ COPY ["nginx.conf", "/etc/nginx/"]
 
 # Copy SSL certificate
 RUN ["mkdir", "-p", "/etc/nginx/certificate/"]
-COPY --chown=www:www nginx-certificate.crt /etc/nginx/certificate/nginx-certificate.crt
+COPY --chown=www:www nginx-crt.pem /etc/nginx/certificate/nginx-crt.pem
 
 # Copy SSL key & set permission
-COPY ["nginx.key", "/etc/nginx/certificate/nginx.key"]
-RUN ["chmod", "400", "/etc/nginx/certificate/nginx.key"]
+COPY ["nginx-key.pem", "/etc/nginx/certificate/nginx-key.pem"]
+RUN ["chmod", "400", "/etc/nginx/certificate/nginx-key.pem"]
 
 # PHP 8.2 Installation with some other utilities
 RUN ["apk", "--no-cache", "add", "php82", "php82-fpm", "php82-pdo", "php82-pdo_mysql", "php82-mysqli", "curl", "socat"]

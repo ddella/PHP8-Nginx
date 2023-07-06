@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.01 (2023-07-06)
+
+- New self signed certificate with ECC
+- Added message on main page about `socat` TCP and UDP listener
+
 ## 2.00 (2023-07-05)
 
 - Update Alpine Mini root FileSystem 3.18.2
