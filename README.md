@@ -93,9 +93,8 @@ docker image ls
 
 The size of the Docker image is ~38 Mb. If you install `tshark`, the size will explode to ~138 Mb 😉
 
-# Running the container locally and sets the local timezone
-This will run the container and map a local directory, in our case `$PWD`, to the root directory of Nginx, `www`, inside the container.  
-That gives you the possibility to change (test) the `html` or `php` files without rebuilding the image.
+# Run the container
+This will run the container:
 ```sh
 docker run --rm -d -p 8080:80 -p 8443:443 --name web \
 --hostname=webserver \
@@ -103,9 +102,10 @@ docker run --rm -d -p 8080:80 -p 8443:443 --name web \
 --env TIMEZONE='America/New_York' \
 --env TCP_PORT=1234 \
 --env UDP_PORT=5678 \
---mount type=bind,source="$(pwd)"/www,target=/www,readonly \
 php82_nginx125:3.18.2
 ```
+
+>**Note**:If you want to map a local directory, in our case `$PWD`, to the root directory of Nginx, `www`, inside the container, add the argument `--mount type=bind,source="$(pwd)"/www,target=/www` to `docker run`. That gives you the possibility to change (test) the `html` or `php` files without rebuilding the image each time.
 
 Port mapping for `HTTP`  : TCP port `80`, inside the container, will be mapped to port `8080` on the local host.  
 Port mapping for `HTTPS` : TCP port `443`, inside the container, will be mapped to port `8443` on the local host.  
