@@ -2,12 +2,14 @@
 This will build a Docker image either from scratch or from a standard Alpine image. It is based on Alpine Linux 3.18.2, Nginx 1.25.x and PHP 8.2.x. This container can be used to test a `load balancer` fronting a farm of web servers or lately I found that it could be used to test networking policy in a Kubernetes Cluster. Many Pods can be started in different namespace to test network policy with different `CNI`.
 
 ## Docker
+If you use this image with Docker, you will need to map ports on the Docker host up to the container.  
 
 ![Docker](images/docker.jpg "Main page")
 
-## Kubernetest
+## Kubernetes
+If you use this image with Kubernetes, you will need to have some kind of services, like `NodePort`, in Kubernetes if you want to access the Pod externally from the cluster.  
 
-![Docker](images/kubernetes.jpg "Main page")
+![Kubernetes](images/kubernetes.jpg "Main page")
 
 # Version
 ## Last Version
