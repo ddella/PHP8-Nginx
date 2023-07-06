@@ -3,9 +3,9 @@
 # You can uncomment the following line and comment the following two (2) lines
 # and you won't have to download the mini root filesystem
 
-FROM alpine:3.18.2
-# FROM scratch
-# ADD ["alpine-minirootfs-3.18.2-x86_64.tar.gz", "/"]
+# FROM alpine:3.18.2
+FROM scratch
+ADD ["alpine-minirootfs-3.18.2-x86_64.tar.gz", "/"]
 
 LABEL org.opencontainers.image.authors="DDN <daniel@isociel.com>"
 LABEL version="2.00"

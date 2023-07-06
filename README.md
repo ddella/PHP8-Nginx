@@ -55,7 +55,7 @@ git clone https://github.com/ddella/PHP8-Nginx.git
 cd PHP8-Nginx
 ```
 
-If you don't have `git` installed, you can use cURL:
+If you don't have `git` installed, you can use `cURL`:
 ```sh
 curl -L -o PHP8-Nginx.zip https://github.com/ddella/PHP8-Nginx/archive/refs/heads/main.zip
 ```
@@ -74,7 +74,7 @@ curl -O https://dl-cdn.alpinelinux.org/alpine/v3.18/releases/x86_64/alpine-minir
 ```
 
 # Build the Docker image from scratch
-This command builds the Docker image. Don't forget the trailing period `(.)` at the end of the command.
+This command builds the Docker image. Don't forget the trailing period `.` at the end of the command:
 ```sh
 docker build -t php82_nginx125:3.18.2 .
 ```
@@ -84,12 +84,7 @@ Check the image, with a filter:
 docker images php82_nginx125:3.18.2
 ```
 
-Check the image without any filter:
-```sh
-docker image ls
-```
-
->**Note:** If you don't want to filter use the command: `docker image ls` (no 'S' in image)
+>**Note:** If you don't want to filter use the command: `docker image ls` (no `s` in image)
 
 The size of the Docker image is ~38 Mb. If you install `tshark`, the size will explode to ~138 Mb 😉
 
