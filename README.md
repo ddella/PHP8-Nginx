@@ -1,4 +1,14 @@
 # Alpine Linux with Nginx/PHP for Docker
+This will build a Docker image either from scratch or from a standard Alpine image. It is based on Alpine Linux 3.18.2, Nginx 1.25.x and PHP 8.2.x. This container can be used to test a `load balancer` fronting a farm of web servers or lately I found that it could be used to test networking policy in a Kubernetes Cluster. Many Pods can be started in different namespace to test network policy with different `CNI`.
+
+## Docker
+
+![Docker](images/docker.jpg "Main page")
+
+## Kubernetest
+
+![Docker](images/kubernetes.jpg "Main page")
+
 # Version
 ## Last Version
 |Name|Version|
@@ -8,9 +18,7 @@
 |**PHP8**|8.2|
 
 # Introduction
-This will build a Docker image, from scratch. It is based on Alpine Linux 3.18.2, Nginx 1.25 and PHP 8.2.
 Three files will be copied on the `www` directory of the container.  
-This container can be used to test a `load balancer` fronting a farm of web servers.
 Just point your browser to your load balancer with the following url and the page gives you lots of information about the request.
 ```url
 http://<load balancer>/phpvariables.php
@@ -294,10 +302,38 @@ Check that there's one Pod per worker node with the command:
 kubectl get pods -n echo-server -o wide
 ```
 
-## Delete Daemon Set
-This will delete the Pods and the namespace:
+## Create a NodePort
+Create the `yaml` file with the command below:
+```sh
+cat > nodePort.yaml<<EOF
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-server-service
+  namespace: echo-server
+spec:
+  type: NodePort
+  selector:
+    name: echo-server
+  ports:
+    - port: 80
+      nodePort: 30001
+      # targetPort: 8080
+      protocol: TCP
+      name: http
+EOF
+```
+
+Create the Pods with the command:
+```sh
+kubectl create -f nodePort.yaml
+```
+
+## Cleanup
+This will delete the Pods, the namespace and the NodePort:
 ```sh
 kubectl delete -f daemonSet.yaml
+kubectl delete -f nodePort.yaml
 ```
 
 # License
