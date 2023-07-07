@@ -1,13 +1,13 @@
 # Alpine Linux with Nginx/PHP for Docker
-This will build a Docker image either from scratch or from a standard Alpine image. It is based on Alpine Linux 3.18.2, Nginx 1.25.x and PHP 8.2.x. This container can be used to test a `load balancer` fronting a farm of web servers or lately I found that it could be used to test networking policy in a Kubernetes Cluster. Many Pods can be started in different namespace to test network policy with different `CNI`.
+This will build a Docker image either from scratch or from a standard Alpine image. It is based on Alpine Linux 3.18.2, Nginx 1.25.x and PHP 8.2.x. This container can be used to test a `load balancer` fronting a farm of web servers or lately I used it to test networking policy in a Kubernetes Cluster. Many Pods can be started in different namespace to test network policy with different `CNI`.
 
 ## Docker
-If you use this image with Docker, you will need to map ports on the Docker host up to the container.  
+If you use this image with Docker, you will need to map ports on the Docker host up to the container with the `-p` option.  
 
 ![Docker](images/docker.jpg "Main page")
 
 ## Kubernetes
-If you use this image with Kubernetes, you will need to have some kind of services, like `NodePort`, in Kubernetes if you want to access the Pod externally from the cluster.  
+If you use this image with Kubernetes, you will need to have some kind of services, like `NodePort`, if you want to access the Pod externally from the cluster.  
 
 ![Kubernetes](images/kubernetes.jpg "Main page")
 
@@ -20,35 +20,34 @@ If you use this image with Kubernetes, you will need to have some kind of servic
 |**PHP8**|8.2|
 
 # Introduction
-Three files will be copied on the `www` directory of the container.  
-Just point your browser to your load balancer with the following url and the page gives you lots of information about the request.
+The images has some PHP files that returns the IP address and source port of clients connecting to it. The files will be copied in the `www` directory of the container. Just point your browser to the url and the page will give you lots of information about the request. I originally made this to test load balancers, so you'll see some references to it. 
 ```url
 http://<load balancer>/phpvariables.php
 ```
 
 1. `index.php` -> The main page when accessing the web server
-2. `phpinfo.php` -> This is the phpinfo() function
-3. `phpvariables.php` -> This is the phpinfo(INFO_VARIABLES) function
-4. `superglobals.php` -> This is a self made file, based on phpinfo() function (not very useful 😀)
+2. `phpinfo.php` -> This is the `phpinfo()` function
+3. `phpvariables.php` -> This is the `phpinfo(INFO_VARIABLES)` function
+4. `superglobals.php` -> This is a self made file, based on `phpinfo()` function (not very useful 😀)
 5. `setcookie.php` -> This sets a cookie (not very useful 😀)
-6. `test.php` -> This is a base minimum HTML page suited for cURL
+6. `test.php` -> This is a base minimum HTML page suited for `cURL`. It doesn't return any `html` code
 
 The build is a five step process:
 
-1. Clone the files from github.
-2. Download the Alpine mini root filesystem. We start our container with this. See an extract of the `Dockerfile`.
+1. Clone the repo from github
+2. Download the Alpine mini root filesystem. We start our container with this. See an extract of the `Dockerfile`
 ```Dockerfile
-# Set master image
+# FROM alpine:3.18.2
 FROM scratch
-ADD alpine-minirootfs-3.18.2-x86_64.tar.gz /
+ADD ["alpine-minirootfs-3.18.2-x86_64.tar.gz", "/"]
 ...
 ```
-3. Build the Docker container.
-4. Install Nginx, PHP 8.2 and execute some scripts to finalize the installation.
-5. Run the container.
+3. Build the Docker image
+4. Install Nginx 1.25, PHP 8.2 and execute some scripts to finalize the installation
+5. Run the container
 
-# Copy all the files needed to build the image
-This will build a Docker image from scratch. It will be based on Alpine Linux 3.18.2 with Nginx web server and PHP 8.2.
+# Clone the repo from github
+This will build a Docker image from scratch based on Alpine Linux 3.18.2 with Nginx web server and PHP. Do just one of the following:
 ```sh
 # Copy all the files for GitHub to your local drive.
 git clone https://github.com/ddella/PHP8-Nginx.git
@@ -66,27 +65,27 @@ unzip PHP8-Nginx.zip
 cd PHP8-Nginx-main
 ```
 
-# Alpine Mini Root FileSystem
-Download Alpine mini root filesystem and place it in the same directory as the `Dockerfile`.
+# Download Alpine Mini Root FileSystem
+Download Alpine mini root filesystem and place it in the same directory as the `Dockerfile`. Don't download the full `iso`, for container image you just need the mini root filesystem:
 ```sh
 # Get the Alpine Mini Root FileSystem (~3.3MB).
 curl -O https://dl-cdn.alpinelinux.org/alpine/v3.18/releases/x86_64/alpine-minirootfs-3.18.2-x86_64.tar.gz
 ```
 
-# Build the Docker image from scratch
+# Build the Docker image
 This command builds the Docker image. Don't forget the trailing period `.` at the end of the command:
 ```sh
 docker build -t php82_nginx125:3.18.2 .
 ```
 
-Check the image, with a filter:
+Check that the image is on your local repository:
 ```sh
 docker images php82_nginx125:3.18.2
 ```
 
 >**Note:** If you don't want to filter use the command: `docker image ls` (no `s` in image)
 
-The size of the Docker image is ~38 Mb. If you install `tshark`, the size will explode to ~138 Mb 😉
+The size of the Docker image is ~38 Mb. If you installed `tshark`, the size will explode to ~138 Mb 😉
 
 # Run the container
 This will run the container:
@@ -126,17 +125,15 @@ Open your browser and type the following url to access the default page of the c
 http://localhost:8080
 ```
 ## HTTPS
-Open your browser and type the following url to access the default page of the container with HTTPS.
-You will get an error from your browser about the `self signed` certificate. This error can be safely ignored.  
-If this really bothers you, you can change the files `nginx-certificate.crt` and `nginx.key`.
+Open your browser and type the following url to access the default page of the container with HTTPS. You will get an error from your browser about the `self signed` certificate. This error can be safely ignored. If this really bothers you, you can change the files `nginx-crt.pem` and `nginx-key.pem`.
 ```url
 https://localhost:8443
 ```
 
 ## cURL
-It might be usefull to test the container with cURL and get back a bare minimum web page.
+It might be usefull to test the container with `cURL` and get back a bare minimum web page.
 
-This is how to call this minimal page with cURL:
+This is how to call this minimal page with `cURL`:
 ```sh
 curl http://localhost:8080/test.php
 ```
@@ -165,7 +162,7 @@ nc 127.0.0.1 1234
 nc 127.0.0.1 -u 5678
 ```
 
-The listeners is using `socat`.  
+The listeners is using `socat` in the container.  
 
 # Terminate the container
 This will terminate the container launched in the preceding step:

@@ -1,9 +1,10 @@
 # Changelog
 
-## 2.01 (2023-07-06)
+## 2.10 (2023-07-07)
 
 - New self signed certificate with ECC
 - Added message on main page about `socat` TCP and UDP listener
+- Minor bug fix
 
 ## 2.00 (2023-07-05)
 
