@@ -1,9 +1,10 @@
 # Changelog
 
-## 2.10 (2023-07-07)
+## 2.20 (2023-07-07)
 
 - New self signed certificate with ECC
 - Added message on main page about `socat` TCP and UDP listener
+- Run everything as user `www`
 - Minor bug fix
 
 ## 2.00 (2023-07-05)
